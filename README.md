@@ -22,8 +22,26 @@ city, rating + review count and its source, a website / no-website tag, a two-li
 what they do, what guests generally say, who you'll actually be talking to, a button through to
 their Google Maps listing — plus a **Called** checkbox and a **call-notes** box.
 
-Ticks and notes are saved to `localStorage`, so they are still there the next time you open the
-file on the same device. They never leave the browser. "Reset my notes" clears them.
+### The call log
+
+The page keeps a call log — a **Called** tick, free-text notes, and who last touched each entry —
+and it stores that log in one of two places depending on how the page is opened:
+
+- **Published as an artifact** (https://claude.ai/code/artifact/81bf9b7c-0717-4c99-a424-8a2e110370bb):
+  the log lives in the artifact's own store, one document per business. Everyone with the link reads
+  and writes the same record and changes appear live, so two people can work the list at once. Entries
+  are stamped with the name typed into the sync bar. An artifact that declares this store is
+  organisation-internal — anyone you share it with must be signed in to the same Claude workspace.
+- **Opened as a plain file**: the log falls back to that browser's `localStorage`. Still saved between
+  visits, but private to that one device.
+
+The bar above the list always says which mode you are in. **Export log** writes the log as JSON
+(via the download capability in the artifact, a plain file download locally) and **Import log** merges
+one back in, keeping whichever entry was edited most recently per business — so two people on separate
+devices can still reconcile without the shared store.
+
+Writes are last-writer-wins per business, and the page never overwrites a notes box while someone is
+typing in it.
 
 Light and dark themes follow your OS and can be toggled; the layout works down to phone width.
 
@@ -76,9 +94,10 @@ Its card parser is covered by the fixtures in `tests/test_parse_cards.py`.
 ## Files
 
 ```
-dashboard.html            the deliverable — open this
+dashboard.html            the standalone deliverable — open this locally
+artifact/leads.html       the same page as artifact body content (no <html> wrapper)
 template.html             HTML/CSS/JS shell; data is injected at build time
-build_dashboard.py        scoring + summary generation, writes dashboard.html
+build_dashboard.py        scoring + summary generation, writes both HTML outputs
 scraper/gmaps_leads.py    Scrapling Google Maps scraper (run on an unrestricted network)
 tests/test_parse_cards.py card-parser test for the scraper
 data/leads_raw.jsonl      one JSON object per business, as researched

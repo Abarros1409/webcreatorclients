@@ -12,6 +12,7 @@ ROOT = Path(__file__).parent
 RAW = ROOT / "data" / "leads_raw.jsonl"
 OUT_JSON = ROOT / "data" / "leads.json"
 OUT_HTML = ROOT / "dashboard.html"
+OUT_ARTIFACT = ROOT / "artifact" / "leads.html"
 
 # --- Ownership classification -------------------------------------------------
 # Who picks up the phone, and can they say yes to a website project?
@@ -54,6 +55,11 @@ SENTIMENT_NOTE = {
     "Scheepskameel": "Exceptional scores across every platform.",
     "Restaurant In den Doofpot": "Rated #2 in Leiden; the wine list is the headline in reviews.",
 }
+
+
+def slug(text):
+    """Lead ids double as db document ids, so keep to [a-z0-9-]."""
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 def norm_rating(value):
@@ -163,7 +169,7 @@ def build():
             "score": score,
             "sort_key": score + tiebreak,
             "maps_url": maps_url(raw),
-            "id": re.sub(r"[^a-z0-9]+", "-", raw["name"].lower()).strip("-") + "-" + raw["city"].lower(),
+            "id": slug(f'{raw["name"]} {raw["city"]}'),
         })
 
     leads.sort(key=lambda x: (-x["sort_key"], x["name"]))
@@ -188,11 +194,21 @@ def build():
                         encoding="utf-8")
 
     template = (ROOT / "template.html").read_text(encoding="utf-8")
-    html = template.replace(
+    body = template.replace(
         "/*__DATA__*/null",
         json.dumps({"stats": stats, "leads": leads}, ensure_ascii=False),
     )
-    OUT_HTML.write_text(html, encoding="utf-8")
+    # The artifact host supplies its own <!doctype>/<head>/<body> skeleton.
+    OUT_ARTIFACT.parent.mkdir(parents=True, exist_ok=True)
+    OUT_ARTIFACT.write_text(body, encoding="utf-8")
+    # The standalone file needs that skeleton written in.
+    OUT_HTML.write_text(
+        '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        + body.replace("</script>\n", "</script>\n</body>\n</html>\n", 1)
+        .replace("</style>\n", "</style>\n</head>\n<body>\n", 1),
+        encoding="utf-8",
+    )
     print(f"{stats['total']} leads | {stats['cities']} cities | "
           f"{stats['reviews']:,} reviews | avg {stats['avg_rating']} | "
           f"{stats['with_phone']} with phone | {stats['no_website']} without a website")
