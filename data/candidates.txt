@@ -1,0 +1,128 @@
+# Rotterdam
+Restaurant Bazar|Rotterdam
+The Rumah|Rotterdam
+Grilla Kitchen|Rotterdam
+Cafe Verward|Rotterdam
+Dune|Rotterdam
+Zeezout|Rotterdam
+iKapitein|Rotterdam
+The Gallery Kitchen|Rotterdam
+Sapporo Ramen Kitchen|Rotterdam
+Warung Mini|Rotterdam
+Sugo|Rotterdam
+Granny's Grill|Rotterdam
+Ter Marsch & Co|Rotterdam
+Roots Rotterdam|Rotterdam
+Restaurant Pho|Rotterdam
+Kiem Foei|Rotterdam
+Rotown|Rotterdam
+Lokanta Proeflokaal|Rotterdam
+Curry's Kralingen|Rotterdam
+Bistro De Jockey Club|Rotterdam
+Restaurant t Slaakhuys|Rotterdam
+The Boathouse Kralingen|Rotterdam
+Sijf|Rotterdam
+Nieuw Rotterdams Cafe|Rotterdam
+Bartendy|Rotterdam
+Mio Papa|Rotterdam
+De Watertoren|Rotterdam
+Restaurant Stockholm|Rotterdam
+Brasserie Pierre|Rotterdam
+Chung|Rotterdam
+Harvest Coffee Brewers|Rotterdam
+Man met Bril Koffie|Rotterdam
+Restaurant Kralingen|Rotterdam
+Parkheuvel|Rotterdam
+Cafe De Ooievaar|Rotterdam
+Cafe Restaurant Soif|Rotterdam
+Balkan Deli|Rotterdam
+La Zia Maria|Rotterdam
+Locus Publicus|Rotterdam
+Bokaal|Rotterdam
+Haagse Bluf|Rotterdam
+The Suicide Club|Rotterdam
+NY Basement|Rotterdam
+Rosalia's Menagerie|Rotterdam
+Tiki Taka Sportsbar|Rotterdam
+Ripsnorter|Rotterdam
+# Amsterdam
+Eetcafe de Jordaan|Amsterdam
+Cafe De Tuin|Amsterdam
+t Monumentje|Amsterdam
+Cafe Chris|Amsterdam
+Proust|Amsterdam
+Dame aan de Kade|Amsterdam
+NEO Bistro|Amsterdam
+Wijmpje Beukers|Amsterdam
+Ceintuur Theater|Amsterdam
+Bar Buuf|Amsterdam
+Trakteren|Amsterdam
+Fuku Koffiebar|Amsterdam
+Dak Coffee Roasters|Amsterdam
+Cafe De Toog|Amsterdam
+Cafe Binnenvisser|Amsterdam
+Ruk en Pluk|Amsterdam
+Cafe Restaurant De Reiger|Amsterdam
+# Eindhoven
+Spaans Centrum|Eindhoven
+De Oude Telefooncentrale|Eindhoven
+Grand Cafe Centraal|Eindhoven
+Zoet en Zout|Eindhoven
+Meneer Frits|Eindhoven
+Van t Spit|Eindhoven
+De Vooruitgang|Eindhoven
+Radio Royaal|Eindhoven
+Ketelhuis|Eindhoven
+Pastryclub|Eindhoven
+Pizzeria Mona Lisa|Eindhoven
+Koffie Keuten|Eindhoven
+The Roast Club|Eindhoven
+Umami by Han|Eindhoven
+Wiesen|Eindhoven
+Lucie Cocina|Eindhoven
+Bellevue Brasserie|Eindhoven
+Stadscafe Spijker|Eindhoven
+The Trafalgar Pub|Eindhoven
+La Dolce Vita|Eindhoven
+# Utrecht
+Veg Nation|Utrecht
+Prins Caspian|Utrecht
+WT Urban Kitchen|Utrecht
+LE:EN|Utrecht
+De Rechtbank|Utrecht
+Gys|Utrecht
+Bar Barak|Utrecht
+Leo Leo|Utrecht
+Ruby Rose|Utrecht
+# Den Haag
+Ethica Restaurant|Den Haag
+Bar Bistro De Twee Heeren|Den Haag
+Triana Tapasbar|Den Haag
+Shakshuka Restaurant|Den Haag
+# Groningen
+Tantunio|Groningen
+Mr Smith's Loft|Groningen
+Grand Cafe Mr Bakels|Groningen
+Black & Bloom|Groningen
+Bij Britta|Groningen
+Cafe Hooghoudt|Groningen
+# Haarlem
+Mano|Haarlem
+Restaurant Fris|Haarlem
+Dodici|Haarlem
+Besos Restobar|Haarlem
+# Leiden
+den Doofpot|Leiden
+Aan de Rijn|Leiden
+Bar Lokaal|Leiden
+# Breda
+Con Fuego|Breda
+Cafe Sam Sam|Breda
+Dames Pellens|Breda
+Brasserie Bardot|Breda
+Bistro Alma|Breda
+Chocolat|Breda
+# Maastricht
+Cafe Local|Maastricht
+# Arnhem
+Dudok Arnhem|Arnhem
