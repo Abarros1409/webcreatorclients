@@ -11,7 +11,7 @@ from urllib.parse import quote_plus
 ROOT = Path(__file__).parent
 RAW = ROOT / "data" / "leads_raw.jsonl"
 OUT_JSON = ROOT / "data" / "leads.json"
-OUT_HTML = ROOT / "dashboard.html"
+OUT_HTML = ROOT / "public" / "index.html"               # what Vercel serves at /
 OUT_ARTIFACT = ROOT / "artifact" / "leads.html"          # shared log (db + downloads)
 OUT_PUBLIC = ROOT / "artifact" / "leads-public.html"     # no capabilities, so the link can go anywhere
 
@@ -207,9 +207,17 @@ def build():
     # whose link can be handed to anyone.
     OUT_PUBLIC.write_text(body, encoding="utf-8")
     # The standalone file needs that skeleton written in.
+    OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
     OUT_HTML.write_text(
         '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        '<meta name="color-scheme" content="light dark">\n'
+        '<meta name="description" content="121 independent Dutch restaurants, cafes and bars, '
+        'scored on how worth calling they are for a website-redesign pitch.">\n'
+        # Inline so the tab has an icon and the page never 404s on /favicon.ico.
+        '<link rel="icon" href="data:image/svg+xml,'
+        '%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E'
+        '%3Ctext y=\'.9em\' font-size=\'90\'%3E%F0%9F%93%9E%3C/text%3E%3C/svg%3E">\n'
         + body.replace("</script>\n", "</script>\n</body>\n</html>\n", 1)
         .replace("</style>\n", "</style>\n</head>\n<body>\n", 1),
         encoding="utf-8",

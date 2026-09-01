@@ -3,7 +3,8 @@
 A single-file dashboard of **121 independent restaurants, cafés and bars** across the
 Netherlands, scored 0–100 on how worth calling each one is for a website-redesign pitch.
 
-**Open `dashboard.html` in any browser.** No server, no build step, no network needed.
+**Open `public/index.html` in any browser** — no server, no build step, no network needed — or deploy
+the repo to Vercel and hand out the URL.
 
 | | |
 |---|---|
@@ -96,7 +97,7 @@ Run the scraper yourself on a normal network to refresh or widen the list:
 pip install "scrapling[all]>=0.4.8"
 scrapling install --force
 python scraper/gmaps_leads.py --out data/leads_raw.jsonl --cities Rotterdam Amsterdam Eindhoven
-python build_dashboard.py          # rewrites dashboard.html
+python3 build_dashboard.py         # rewrites public/index.html and the artifact bodies
 ```
 
 It drives a stealth browser, scrolls each result feed until Google stops adding cards, and pulls
@@ -106,10 +107,11 @@ Its card parser is covered by the fixtures in `tests/test_parse_cards.py`.
 ## Files
 
 ```
-dashboard.html            the standalone deliverable — open this locally
+public/index.html         the site — open it locally, and what Vercel serves at /
+vercel.json               static config: serve public/, clean URLs, basic security headers
 artifact/leads.html       the same page as artifact body content (no <html> wrapper)
 template.html             HTML/CSS/JS shell; data is injected at build time
-build_dashboard.py        scoring + summary generation, writes both HTML outputs
+build_dashboard.py        scoring + summary generation, writes all three HTML outputs
 scraper/gmaps_leads.py    Scrapling Google Maps scraper (run on an unrestricted network)
 tests/test_parse_cards.py card-parser test for the scraper
 data/leads_raw.jsonl      one JSON object per business, as researched

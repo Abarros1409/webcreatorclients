@@ -1,0 +1,7 @@
+# Only public/ is served; keep the rest of the repo out of the deployment.
+scraper/
+tests/
+artifact/
+data/candidates.txt
+__pycache__/
+*.pyc
