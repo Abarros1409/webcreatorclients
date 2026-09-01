@@ -236,6 +236,20 @@ footer b{color:var(--ink-2)}
 .ghost.danger:hover{border-color:var(--warn);color:var(--warn)}
 
 .stamp{font-size:11px;color:var(--ink-3);min-height:14px}
+
+/* ---------- log transfer dialog ---------- */
+dialog#io{
+  border:1px solid var(--line);border-radius:15px;background:var(--surface);color:var(--ink);
+  padding:0;max-width:min(560px,92vw);width:100%;box-shadow:0 24px 60px -18px rgba(0,0,0,.45)
+}
+dialog#io::backdrop{background:rgba(4,18,24,.55)}
+.io-in{padding:22px 24px;display:grid;gap:13px}
+.io-in h2{font:400 21px/1.2 ui-serif,Georgia,serif;margin:0;letter-spacing:-.012em}
+.io-in p{margin:0;font-size:13px;color:var(--ink-2)}
+.io-in textarea{min-height:150px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px}
+.io-row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.io-row .sep{flex:1}
+.io-msg{font-size:12px;color:var(--accent);min-height:15px}
 .stamp b{color:var(--ink-2);font-weight:600}
 
 @media (max-width:820px){
@@ -295,6 +309,22 @@ footer b{color:var(--ink-2)}
   <button class="ghost danger" id="resetBtn" type="button">Clear log</button>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
 </div>
+
+<dialog id="io">
+  <div class="io-in">
+    <h2 id="ioTitle">Transfer your call log</h2>
+    <p id="ioHelp"></p>
+    <textarea id="ioText" spellcheck="false" placeholder="Paste a call log here…"></textarea>
+    <span class="io-msg" id="ioMsg"></span>
+    <div class="io-row">
+      <button class="ghost" id="ioCopy" type="button">Copy to clipboard</button>
+      <button class="ghost" id="ioFile" type="button">Open a file instead</button>
+      <span class="sep"></span>
+      <button class="ghost" id="ioMerge" type="button">Merge this log in</button>
+      <button class="ghost" id="ioClose" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
 
 <div class="progress">
   <span id="progTxt">0 of 0 called</span>
@@ -414,7 +444,7 @@ function setStatus(on, text, why){
 async function connect(){
   const store = await useCap("db");
   if (!store){
-    setStatus(false, "Saved on this device", "— open the shared link to log calls together");
+    setStatus(false, "Saved on this device", "— private to this browser; use Export log to hand it on");
     return;
   }
   db = store;
@@ -647,33 +677,44 @@ meInput.addEventListener("input", e=>{
   try { localStorage.setItem(NS+"-me", me); } catch(err){}
 });
 
-/* ---------------------------------------------------------------- export / import */
-$("#exportBtn").addEventListener("click", async ()=>{
-  const payload = JSON.stringify({app:"nl-horeca-leads", exported:new Date().toISOString(), records}, null, 1);
-  const filename = "call-log-" + new Date().toISOString().slice(0,10) + ".json";
-  const dl = await useCap("downloads");
-  if (dl){
-    try { await dl.save({filename, data:payload}); } catch(err){ /* viewer declined */ }
-    return;
-  }
-  const url = URL.createObjectURL(new Blob([payload], {type:"application/json"}));
-  const a = document.createElement("a");
-  a.href = url; a.download = filename; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 2000);
-});
+/* ---------------------------------------------------------------- export / import
+   A published page cannot start its own download unless the `downloads` capability
+   is granted, and a public artifact cannot declare it — so copy/paste is the
+   fallback that works everywhere. */
+const inViewer = !!(window.claude && typeof window.claude.use === "function");
+const io = $("#io");
 
-$("#importBtn").addEventListener("click", ()=>$("#importFile").click());
-$("#importFile").addEventListener("change", async e=>{
-  const file = e.target.files && e.target.files[0];
-  e.target.value = "";
-  if (!file) return;
+function logPayload(){
+  return JSON.stringify({app:"nl-horeca-leads", exported:new Date().toISOString(), records}, null, 1);
+}
+function logFilename(){
+  return "call-log-" + new Date().toISOString().slice(0,10) + ".json";
+}
+function ioMsg(text){
+  $("#ioMsg").textContent = text || "";
+}
+function openIO(mode, text){
+  $("#ioTitle").textContent = mode === "export" ? "Copy your call log" : "Merge in a call log";
+  $("#ioHelp").textContent  = mode === "export"
+    ? "Select all of this and send it to whoever needs it. They paste it into Import log on their copy."
+    : "Paste a log someone sent you, or open the exported file. Whichever entry was edited most recently wins, per business.";
+  $("#ioText").value = text || "";
+  $("#ioCopy").hidden  = mode !== "export";
+  $("#ioMerge").hidden = mode === "export";
+  $("#ioFile").hidden  = mode === "export";
+  ioMsg("");
+  io.showModal();
+  if (mode === "export") { $("#ioText").focus(); $("#ioText").select(); }
+}
+
+function mergeLog(raw){
   let incoming;
   try {
-    incoming = JSON.parse(await file.text()).records;
+    incoming = JSON.parse(raw).records;
     if (!incoming || typeof incoming !== "object") throw new Error("no records");
   } catch(err){
-    alert("That file is not a call log exported from this page.");
-    return;
+    ioMsg("That is not a call log exported from this page.");
+    return null;
   }
   let merged = 0;
   Object.keys(incoming).forEach(id=>{
@@ -690,7 +731,55 @@ $("#importFile").addEventListener("change", async e=>{
   });
   cacheLocal();
   render();
-  alert(merged ? merged + " entries merged in." : "Nothing to merge — your log is already up to date.");
+  return merged;
+}
+
+$("#exportBtn").addEventListener("click", async ()=>{
+  const payload = logPayload();
+  const dl = await useCap("downloads");
+  if (dl){
+    try { await dl.save({filename:logFilename(), data:payload}); return; }
+    catch(err){ /* viewer declined or the save failed — fall through to copy/paste */ }
+  }
+  if (!inViewer){                                    // a local file can download for real
+    const url = URL.createObjectURL(new Blob([payload], {type:"application/json"}));
+    const a = document.createElement("a");
+    a.href = url; a.download = logFilename(); a.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+    return;
+  }
+  openIO("export", payload);
+});
+
+$("#importBtn").addEventListener("click", ()=>openIO("import", ""));
+$("#ioFile").addEventListener("click", ()=>$("#importFile").click());
+$("#ioClose").addEventListener("click", ()=>io.close());
+
+$("#ioCopy").addEventListener("click", async ()=>{
+  const text = $("#ioText").value;
+  try {
+    await navigator.clipboard.writeText(text);
+    ioMsg("Copied.");
+  } catch(err){
+    $("#ioText").focus(); $("#ioText").select();
+    ioMsg("Clipboard is blocked here — the text is selected, press Ctrl/Cmd+C.");
+  }
+});
+
+$("#ioMerge").addEventListener("click", ()=>{
+  const merged = mergeLog($("#ioText").value.trim());
+  if (merged === null) return;
+  ioMsg(merged ? merged + " entries merged in." : "Nothing to merge — your log is already up to date.");
+});
+
+$("#importFile").addEventListener("change", async e=>{
+  const file = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if (!file) return;
+  const text = await file.text();
+  if (!io.open) openIO("import", text); else $("#ioText").value = text;
+  const merged = mergeLog(text);
+  if (merged !== null) ioMsg(merged ? merged + " entries merged in." : "Nothing to merge — your log is already up to date.");
 });
 
 $("#resetBtn").addEventListener("click", ()=>{

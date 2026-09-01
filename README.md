@@ -35,10 +35,22 @@ and it stores that log in one of two places depending on how the page is opened:
 - **Opened as a plain file**: the log falls back to that browser's `localStorage`. Still saved between
   visits, but private to that one device.
 
-The bar above the list always says which mode you are in. **Export log** writes the log as JSON
-(via the download capability in the artifact, a plain file download locally) and **Import log** merges
-one back in, keeping whichever entry was edited most recently per business — so two people on separate
-devices can still reconcile without the shared store.
+The bar above the list always says which mode you are in. **Export log** and **Import log** move the log
+as JSON, keeping whichever entry was edited most recently per business, so two people on separate devices
+reconcile without the shared store. How the transfer happens depends on what the page is allowed to do:
+a real file download where that works (the local file, or the shared artifact via its download
+capability), and otherwise a copy-paste dialog — the artifact viewer never lets a page start its own
+download, so copy-paste is the fallback that works everywhere.
+
+### Two published links
+
+| Link | Call log | Who can open it |
+|---|---|---|
+| [Shared log](https://claude.ai/code/artifact/81bf9b7c-0717-4c99-a424-8a2e110370bb) | One shared record, live across viewers | Only people signed in to the same Claude workspace — declaring the shared store makes an artifact organisation-internal, so this link cannot be made public |
+| [Public copy](https://claude.ai/code/artifact/148ce52b-b0a5-46c5-86d6-715cddf385f8) | Each viewer's own browser | Anyone with the link |
+
+Same page, same data, published twice. The public copy declares no capabilities, which is exactly what
+lets its link be shared without restriction — and exactly why it has no shared log.
 
 Writes are last-writer-wins per business, and the page never overwrites a notes box while someone is
 typing in it.

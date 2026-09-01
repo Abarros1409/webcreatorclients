@@ -12,7 +12,8 @@ ROOT = Path(__file__).parent
 RAW = ROOT / "data" / "leads_raw.jsonl"
 OUT_JSON = ROOT / "data" / "leads.json"
 OUT_HTML = ROOT / "dashboard.html"
-OUT_ARTIFACT = ROOT / "artifact" / "leads.html"
+OUT_ARTIFACT = ROOT / "artifact" / "leads.html"          # shared log (db + downloads)
+OUT_PUBLIC = ROOT / "artifact" / "leads-public.html"     # no capabilities, so the link can go anywhere
 
 # --- Ownership classification -------------------------------------------------
 # Who picks up the phone, and can they say yes to a website project?
@@ -201,6 +202,10 @@ def build():
     # The artifact host supplies its own <!doctype>/<head>/<body> skeleton.
     OUT_ARTIFACT.parent.mkdir(parents=True, exist_ok=True)
     OUT_ARTIFACT.write_text(body, encoding="utf-8")
+    # Same page, published a second time with no capabilities declared: an artifact
+    # that declares the shared store cannot be shared publicly, so this is the copy
+    # whose link can be handed to anyone.
+    OUT_PUBLIC.write_text(body, encoding="utf-8")
     # The standalone file needs that skeleton written in.
     OUT_HTML.write_text(
         '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
