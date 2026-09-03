@@ -1,0 +1,12 @@
+# The deploy only needs index.html (and its copy in public/). Keep the source,
+# the scraper and the raw research data out of what gets served.
+scraper/
+tests/
+artifact/
+data/
+template.html
+build_dashboard.py
+DEPLOY.md
+README.md
+__pycache__/
+*.pyc
