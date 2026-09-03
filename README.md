@@ -3,7 +3,7 @@
 A single-file dashboard of **121 independent restaurants, cafés and bars** across the
 Netherlands, scored 0–100 on how worth calling each one is for a website-redesign pitch.
 
-**Open `public/index.html` in any browser** — no server, no build step, no network needed — or deploy
+**Open `index.html` in any browser** — no server, no build step, no network needed — or deploy
 the repo to Vercel and hand out the URL.
 
 | | |
@@ -107,8 +107,9 @@ Its card parser is covered by the fixtures in `tests/test_parse_cards.py`.
 ## Files
 
 ```
-public/index.html         the site — open it locally, and what Vercel serves at /
-vercel.json               static config: serve public/, clean URLs, basic security headers
+index.html                the site — open it locally; this is what Vercel serves at /
+public/index.html         identical copy, so the deploy works whichever root Vercel picks
+vercel.json               static config: clean URLs, basic security headers
 artifact/leads.html       the same page as artifact body content (no <html> wrapper)
 template.html             HTML/CSS/JS shell; data is injected at build time
 build_dashboard.py        scoring + summary generation, writes all three HTML outputs

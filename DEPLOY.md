@@ -1,20 +1,28 @@
 # Deploying to Vercel
 
-The site is a single static file. `public/index.html` is committed, so Vercel has nothing to
-build — it just serves the folder.
+The site is a single static file. It is committed as **`index.html` at the repo root**, with an
+identical copy at `public/index.html`, so Vercel finds it whether the project serves the root or a
+`public/` output directory. Nothing is built at deploy time.
+
+> The first attempt set `outputDirectory: "public"` in `vercel.json` and served a 404 — the project
+> was serving the repo root, where there was no `index.html`. Writing both copies removes the guess.
 
 ## First deploy
 
 1. On [vercel.com](https://vercel.com), **Add New → Project**, and import
    `Abarros1409/webcreatorclients`.
 2. Framework preset: **Other**. Leave the build command empty.
-3. Output directory: **`public`** — `vercel.json` already sets this, so the field should
-   fill itself in. If Vercel shows a 404 after deploying, this is the setting to check.
-4. Deploy. The URL it gives you works for anyone, signed in or not.
+3. Output directory: leave it empty (the repo root). `index.html` is right there.
+4. Deploy.
 
 Pick the branch you want it to track. `main` is the usual choice; if you deploy the
 `claude/netherlands-restaurant-leads-539zwn` branch before merging, Vercel treats it as a
 preview deployment.
+
+**Preview URLs may ask for a Vercel login.** On paid plans Vercel's Standard Protection covers
+preview deployments while production stays public. If your friend hits a login wall, either merge to
+`main` and share the production URL, or turn the protection off under
+Project → Settings → Deployment Protection.
 
 ## Updating the data
 
@@ -22,12 +30,12 @@ preview deployment.
 
 ```bash
 # edit data/leads_raw.jsonl or the scoring in build_dashboard.py, then
-python3 build_dashboard.py
+python3 build_dashboard.py     # rewrites index.html, public/index.html and the artifact bodies
 git add -A && git commit -m "Refresh leads" && git push
 ```
 
-Vercel redeploys on push. Editing `public/index.html` directly works until the next build
-overwrites it — change `template.html` or `build_dashboard.py` instead.
+Vercel redeploys on push. Editing `index.html` directly works until the next build overwrites it —
+change `template.html` or `build_dashboard.py` instead.
 
 ## What the call log does on Vercel
 

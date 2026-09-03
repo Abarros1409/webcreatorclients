@@ -11,7 +11,11 @@ from urllib.parse import quote_plus
 ROOT = Path(__file__).parent
 RAW = ROOT / "data" / "leads_raw.jsonl"
 OUT_JSON = ROOT / "data" / "leads.json"
-OUT_HTML = ROOT / "public" / "index.html"               # what Vercel serves at /
+# Vercel is written to twice on purpose: it serves the repo root on some project
+# configurations and public/ on others, and a 404 from picking wrong is worse than
+# a duplicated generated file. Both copies are identical and both are committed.
+OUT_HTML = ROOT / "index.html"
+OUT_HTML_PUBLIC = ROOT / "public" / "index.html"
 OUT_ARTIFACT = ROOT / "artifact" / "leads.html"          # shared log (db + downloads)
 OUT_PUBLIC = ROOT / "artifact" / "leads-public.html"     # no capabilities, so the link can go anywhere
 
@@ -207,8 +211,7 @@ def build():
     # whose link can be handed to anyone.
     OUT_PUBLIC.write_text(body, encoding="utf-8")
     # The standalone file needs that skeleton written in.
-    OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
-    OUT_HTML.write_text(
+    page = (
         '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         '<meta name="color-scheme" content="light dark">\n'
@@ -219,9 +222,11 @@ def build():
         '%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E'
         '%3Ctext y=\'.9em\' font-size=\'90\'%3E%F0%9F%93%9E%3C/text%3E%3C/svg%3E">\n'
         + body.replace("</script>\n", "</script>\n</body>\n</html>\n", 1)
-        .replace("</style>\n", "</style>\n</head>\n<body>\n", 1),
-        encoding="utf-8",
+        .replace("</style>\n", "</style>\n</head>\n<body>\n", 1)
     )
+    OUT_HTML.write_text(page, encoding="utf-8")
+    OUT_HTML_PUBLIC.parent.mkdir(parents=True, exist_ok=True)
+    OUT_HTML_PUBLIC.write_text(page, encoding="utf-8")
     print(f"{stats['total']} leads | {stats['cities']} cities | "
           f"{stats['reviews']:,} reviews | avg {stats['avg_rating']} | "
           f"{stats['with_phone']} with phone | {stats['no_website']} without a website")
