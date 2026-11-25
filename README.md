@@ -119,3 +119,7 @@ data/leads_raw.jsonl      one JSON object per business, as researched
 data/leads.json           scored + enriched records, as embedded in the dashboard
 data/candidates.txt       the discovery shortlist the research started from
 ```
+
+## Website factory
+
+`factory/` holds the system that turns a lead into a private demo site and pitch kit (audit → pick → collect → style → generate → QA → publish → pitch → launch). Start with [`factory/README.md`](factory/README.md). Client work goes in `clients/`, which git ignores because this repository is public.

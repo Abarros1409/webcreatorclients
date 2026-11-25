@@ -1,0 +1,10 @@
+---
+import { fill } from '../lib/i18n.js';
+const { c, ui, studio } = Astro.props;
+---
+<aside class="concept" data-concept-ribbon aria-label={fill(ui.concept, { name: c.business.name })}>
+  <p>
+    <strong>{fill(ui.concept, { name: c.business.name })}</strong>
+    <span>{fill(ui.conceptSub, { studio: studio.name })}</span>
+  </p>
+</aside>

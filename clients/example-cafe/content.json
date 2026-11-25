@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "slug": "example-cafe",
+  "mode": "demo",
+  "look": "brown-cafe",
+  "business": {
+    "name": "Café Voorbeeld",
+    "kind": "brown-cafe",
+    "schema_type": "BarOrPub",
+    "cuisine": ["Bruin café"],
+    "price_range": "€€",
+    "founded": 1962,
+    "tagline": { "nl": "Een fictief bruin café om de fabriek mee te testen.", "en": "A fictional brown café for testing the factory." },
+    "intro": { "nl": "Dit voorbeeld bestaat niet. Het laat zien hoe een site eruitziet als alle secties gevuld zijn.", "en": "This example does not exist. It shows what a site looks like with every section filled in." },
+    "story": {
+      "title": { "nl": "Sinds 1962 aan de gracht", "en": "On the canal since 1962" },
+      "body": {
+        "nl": "Café Voorbeeld is verzonnen. Elke tekst hier is testinhoud voor de starter kit.\n\nIn een echte site staat hier het verhaal van de eigenaar, in hun eigen woorden, nagelopen door Adam.",
+        "en": "Café Voorbeeld is made up. Every line here is test content for the starter kit.\n\nOn a real site this is the owner's story, in their own words, checked by Adam."
+      }
+    },
+    "facts": [
+      { "value": "1962", "label": { "nl": "Geopend", "en": "Opened" } },
+      { "value": "14", "label": { "nl": "Bieren van de tap", "en": "Beers on tap" } },
+      { "value": "40", "label": { "nl": "Plekken op het terras", "en": "Terrace seats" } }
+    ]
+  },
+  "contact": {
+    "phone": "+31100000000",
+    "phone_display": "010 000 00 00",
+    "email": "test@example.com",
+    "address": { "street": "Voorbeeldkade 1", "postal_code": "3000 AA", "city": "Rotterdam", "country": "NL" },
+    "geo": { "lat": 51.9225, "lng": 4.4792 },
+    "maps_url": "https://www.openstreetmap.org/?mlat=51.9225&mlon=4.4792#map=17/51.9225/4.4792",
+    "directions": { "nl": "Fictief adres. Tram 8, halte Voorbeeld.", "en": "Fictional address. Tram 8, stop Voorbeeld." }
+  },
+  "hours": {
+    "timezone": "Europe/Amsterdam",
+    "regular": [
+      { "days": ["mo", "tu", "we", "th"], "opens": "12:00", "closes": "00:00" },
+      { "days": ["fr", "sa"], "opens": "12:00", "closes": "02:00" },
+      { "days": ["su"], "opens": "13:00", "closes": "23:00" }
+    ],
+    "special": [{ "date": "2026-12-25", "label": { "nl": "Eerste kerstdag", "en": "Christmas Day" }, "closed": true }],
+    "note": { "nl": "Keuken open tot 21:30.", "en": "Kitchen open until 21:30." }
+  },
+  "menu": {
+    "title": { "nl": "Eten & drinken", "en": "Food & drinks" },
+    "currency": "EUR",
+    "searchable": true,
+    "sections": [
+      {
+        "id": "bites",
+        "title": { "nl": "Borrel", "en": "Bar bites" },
+        "items": [
+          { "name": { "nl": "Bitterballen (8)", "en": "Bitterballen (8)" }, "description": { "nl": "Met grove mosterd.", "en": "With coarse mustard." }, "price": 8.5, "featured": true },
+          { "name": { "nl": "Oude kaas met mosterd", "en": "Aged cheese with mustard" }, "price": 7.0, "tags": ["vegetarian"] },
+          { "name": { "nl": "Vegan bitterballen (8)", "en": "Vegan bitterballen (8)" }, "price": 8.5, "tags": ["vegan"] }
+        ]
+      },
+      {
+        "id": "beer",
+        "title": { "nl": "Van de tap", "en": "On tap" },
+        "note": { "nl": "Wisselende gasttap, vraag aan de bar.", "en": "Rotating guest tap, ask at the bar." },
+        "items": [
+          { "name": "Voorbeeld Pils", "meta": "NL · 5,0%", "price_label": "0,25 3,90 · 0,5 7,20" },
+          { "name": "Testbier Tripel", "meta": "BE · 8,5%", "price": 6.5, "tags": ["signature"] },
+          { "name": { "nl": "Alcoholvrij witbier", "en": "Alcohol-free wheat beer" }, "meta": "NL · 0,0%", "price": 4.5, "tags": ["alcohol-free"] }
+        ]
+      }
+    ],
+    "allergens_note": { "nl": "Vraag ons naar allergenen.", "en": "Ask us about allergens." },
+    "source": { "kind": "manual" }
+  },
+  "booking": { "provider": "phone", "note": { "nl": "Voor groepen vanaf 8 personen: gebruik het formulier hieronder.", "en": "Groups of 8 or more: use the form below." } },
+  "links": { "instagram": "https://www.instagram.com/" },
+  "reviews": { "rating": 4.6, "count": 1234, "source": "Google", "url": "https://www.google.com/maps" },
+  "events": {
+    "items": [
+      { "title": { "nl": "Pubquiz", "en": "Pub quiz" }, "when": { "nl": "Elke dinsdag, 20:30", "en": "Every Tuesday, 20:30" }, "description": { "nl": "Teams tot 6 personen.", "en": "Teams of up to 6." } },
+      { "title": { "nl": "Live jazz", "en": "Live jazz" }, "when": { "nl": "Eerste zondag van de maand", "en": "First Sunday of the month" } }
+    ]
+  },
+  "groups": {
+    "enabled": true,
+    "title": { "nl": "Borrel met een groep", "en": "Drinks with a group" },
+    "body": { "nl": "Vanaf 8 personen reserveren we een hoek voor jullie.", "en": "From 8 people we keep a corner for you." },
+    "min_size": 8,
+    "max_size": 60,
+    "form": { "method": "mailto", "to": "test@example.com" }
+  },
+  "media": {
+    "hero": { "file": "bar.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in", "credit": "Generated test image" },
+    "story": { "file": "interior.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in" },
+    "gallery": [
+      { "file": "terrace.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in" },
+      { "file": "table.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in" },
+      { "file": "interior.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in" },
+      { "file": "bar.jpg", "alt": { "nl": "Abstracte testafbeelding", "en": "Abstract test image" }, "origin": "stand-in" }
+    ]
+  },
+  "seo": {
+    "title": { "nl": "Café Voorbeeld · fictief bruin café in Rotterdam", "en": "Café Voorbeeld · fictional brown café in Rotterdam" },
+    "description": { "nl": "Testsite voor de websitefabriek. Dit café bestaat niet.", "en": "Test site for the website factory. This café does not exist." }
+  },
+  "demo": { "token": "test42", "made_on": "2026-11-25" }
+}

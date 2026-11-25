@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import { photo, svgUrl, isSvg } from '../lib/media.js';
+const { c, size = 'md' } = Astro.props;
+const logo = c.media?.logo;
+const raster = logo && !isSvg(logo.file) ? photo(logo.file) : null;
+const vector = logo && isSvg(logo.file) ? svgUrl(logo.file) : null;
+const name = c.business.short_name ?? c.business.name;
+---
+{raster ? (
+  <Image src={raster} alt={c.business.name} height={size === 'lg' ? 96 : 44} class={`logo logo-${size} ${logo.invert_on_dark ? 'logo-invert' : ''}`} loading="eager" />
+) : vector ? (
+  <img src={vector} alt={c.business.name} class={`logo logo-${size} ${logo.invert_on_dark ? 'logo-invert' : ''}`} height={size === 'lg' ? 96 : 44} />
+) : (
+  <span class={`wordmark wordmark-${size}`}>{name}</span>
+)}

@@ -2,7 +2,15 @@
 
 This repo builds websites for real small businesses (restaurants, cafés, bars, hospitality and other local clients) and the prospecting tools around them. **Every page shipped from here must look like it came from a top design studio**: a committed visual direction, real content, flawless responsive behaviour, and fast, accessible code.
 
-Talk to the user in Spanish (rioplatense). Code, comments, commit messages and file names in English.
+Talk to the user in Spanish (rioplatense). Code, comments, commit messages and file names in English. Anything written for Adam (docs, plans, scripts, templates) is in English.
+
+## The website factory (start here for client work)
+
+Demos and client sites are built with the factory, not from scratch: `factory/README.md` is the specification and the `factory` skill is the runbook (`/factory demo <lead>`, `/factory launch <slug>`, `/factory change <slug> "…"`). The starter kit lives in `factory/starter/`; per-client content in `clients/<slug>/`.
+
+- **This repo is public.** `clients/` is git-ignored (except the fictional `clients/example-cafe/`). Never commit client content, photos, audits or demo builds, and never publish a real business's demo as an Artifact.
+- Improve the factory for everyone (starter sections, looks, scripts) rather than hand-editing one client's build; per-client differences go in `clients/<slug>/theme.css` or `clients/<slug>/overrides/`.
+- The design workflow below applies inside the factory too: Generate and visual review are where the design skills matter most.
 
 ## The workflow for any web page
 

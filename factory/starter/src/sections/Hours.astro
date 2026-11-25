@@ -1,0 +1,60 @@
+---
+import Icon from '../components/Icon.astro';
+import OpenBadge from '../components/OpenBadge.astro';
+import { t, has } from '../lib/i18n.js';
+import { rows } from '../lib/hours.js';
+import { telHref } from '../lib/actions.js';
+const { c, ui, lang } = Astro.props;
+const a = c.contact.address;
+const list = rows(c.hours, lang);
+const geo = c.contact.geo;
+const bbox = geo ? [geo.lng - 0.006, geo.lat - 0.003, geo.lng + 0.006, geo.lat + 0.003].map((n) => n.toFixed(5)).join(',') : null;
+const osm = geo ? `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${geo.lat},${geo.lng}` : null;
+const upcoming = (c.hours.special ?? []).filter((s) => s.date >= new Date().toISOString().slice(0, 10)).slice(0, 4);
+---
+<section class="section hours" id="hours" data-section="hours" aria-labelledby="hours-title">
+  <div class="wrap hours-grid">
+    <div class="hours-card reveal">
+      <h2 id="hours-title" class="section-title">{ui.hoursTitle}</h2>
+      <OpenBadge />
+      <dl class="hours-list">
+        {list.map((r) => (
+          <div class={`hours-row ${r.closed ? 'is-closed' : ''}`} data-days={r.days.join(' ')}>
+            <dt>{r.label}</dt>
+            <dd>
+              {r.closed ? ui.closed : r.blocks.map((b) => (
+                <span class="hours-block">{b.label && <em>{t(b.label, lang)} </em>}{b.opens}–{b.closes}</span>
+              ))}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {upcoming.length > 0 && (
+        <div class="hours-special">
+          <h3>{ui.special}</h3>
+          <ul>{upcoming.map((s) => <li><strong>{t(s.label, lang)}</strong> {s.closed ? ui.closed : `${s.opens}–${s.closes}`}</li>)}</ul>
+        </div>
+      )}
+      {has(c.hours.note) && <p class="hours-note">{t(c.hours.note, lang)}</p>}
+    </div>
+
+    <div class="location-card reveal" aria-labelledby="find-title">
+      <h2 id="find-title" class="section-title">{ui.findUs}</h2>
+      <address>
+        <span>{a.street}</span>
+        <span>{a.postal_code} {a.city}</span>
+      </address>
+      {has(c.contact.directions) && <p class="directions">{t(c.contact.directions, lang)}</p>}
+      <div class="location-actions">
+        <a class="btn btn-primary" href={c.contact.maps_url} target="_blank" rel="noopener"><Icon name="pin" />{ui.route}</a>
+        {telHref(c) && <a class="btn btn-ghost" href={telHref(c)}><Icon name="phone" />{c.contact.phone_display ?? c.contact.phone}</a>}
+      </div>
+      {osm && (
+        <div class="map" data-map={osm}>
+          <button type="button" class="map-load" data-map-load><Icon name="map" />{ui.showMap}</button>
+          <p class="map-note">{ui.mapNote}</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

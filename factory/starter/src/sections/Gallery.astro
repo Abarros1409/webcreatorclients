@@ -1,0 +1,17 @@
+---
+import Img from '../components/Img.astro';
+const { c, ui, lang } = Astro.props;
+const items = c.media.gallery;
+---
+<section class="section gallery" id="gallery" data-section="gallery" aria-labelledby="gallery-title">
+  <div class="wrap">
+    <h2 id="gallery-title" class="section-title reveal">{ui.galleryTitle}</h2>
+    <ul class={`gallery-grid count-${Math.min(items.length, 8)}`}>
+      {items.slice(0, 8).map((img, i) => (
+        <li class={`gallery-item g-${i + 1} reveal`}>
+          <Img image={img} lang={lang} sizes="(min-width: 960px) 33vw, 50vw" widths={[400, 800, 1200]} class="gallery-img" />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

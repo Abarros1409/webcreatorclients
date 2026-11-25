@@ -1,0 +1,72 @@
+---
+import Icon from '../components/Icon.astro';
+import Img from '../components/Img.astro';
+import { t, has, formatPrice, fill } from '../lib/i18n.js';
+const { c, ui, lang } = Astro.props;
+const m = c.menu;
+const searchable = !!m.searchable;
+const total = m.sections.reduce((n, s) => n + s.items.length, 0);
+// Long menus show one category at a time (search still covers everything).
+const paged = searchable && total > 40 && m.sections.length > 2;
+const num = (i) => (/^#\d+$/.test(i.meta ?? '') ? i.meta.slice(1) : null);
+const price = (i) => i.price_label ?? (typeof i.price === 'number' ? formatPrice(i.price, lang) : '');
+---
+<section class="section menu" id="menu" data-section="menu" aria-labelledby="menu-title" data-menu data-searchable={searchable ? 'true' : undefined} data-paged={paged ? 'true' : undefined}>
+  <div class="wrap">
+    <header class="section-head">
+      <h2 id="menu-title" class="section-title reveal">{has(m.title) ? t(m.title, lang) : ui.menuTitle}</h2>
+      {has(m.intro) && <p class="section-intro reveal">{t(m.intro, lang)}</p>}
+    </header>
+
+    {m.sections.length > 1 && (
+      <nav class="menu-tabs" aria-label={ui.menuTitle}>
+        {searchable && !paged && <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">{ui.all}</button>}
+        {m.sections.map((s, idx) => searchable
+          ? <button type="button" class={`chip ${paged && idx === 0 ? 'is-active' : ''}`} data-filter={s.id} aria-pressed={paged && idx === 0 ? 'true' : 'false'}>{t(s.title, lang)}<span class="chip-count">{s.items.length}</span></button>
+          : <a class="chip" href={`#menu-${s.id}`}>{t(s.title, lang)}</a>)}
+      </nav>
+    )}
+
+    {searchable && (
+      <div class="menu-search">
+        <label for="menu-q" class="visually-hidden">{ui.searchMenu}</label>
+        <Icon name="search" />
+        <input id="menu-q" type="search" placeholder={ui.searchMenu} autocomplete="off" data-menu-search />
+        <output data-menu-count data-template={ui.results} data-total={total}></output>
+      </div>
+    )}
+
+    <div class="menu-sections">
+      {m.sections.map((s) => (
+        <section class="menu-section" id={`menu-${s.id}`} data-menu-section={s.id} aria-labelledby={`menu-${s.id}-title`}>
+          <h3 id={`menu-${s.id}-title`} class="menu-section-title">{t(s.title, lang)}</h3>
+          {has(s.note) && <p class="menu-note">{t(s.note, lang)}</p>}
+          <ul class="menu-list">
+            {s.items.map((i) => (
+              <li class={`menu-item ${i.featured ? 'is-featured' : ''} ${i.photo ? 'has-photo' : ''}`} data-menu-item data-search={[t(i.name, 'nl'), t(i.name, 'en'), t(i.description, lang), i.meta ?? ''].join(' ').toLowerCase()}>
+                {i.photo && <Img image={{ file: i.photo, alt: { nl: t(i.name, 'nl'), en: t(i.name, 'en') }, origin: 'client' }} lang={lang} sizes="160px" widths={[160, 320]} class="menu-photo" />}
+                <div class="menu-item-main">
+                  <p class="menu-item-line">
+                    {num(i) && <span class="menu-num" aria-label={`nr. ${num(i)}`}>{num(i)}</span>}
+                    <span class="menu-item-name">{t(i.name, lang)}</span>
+                    <span class="menu-leader" aria-hidden="true"></span>
+                    {price(i) && <span class="menu-item-price">{price(i)}</span>}
+                  </p>
+                  {has(i.description) && <p class="menu-item-desc">{t(i.description, lang)}</p>}
+                  {((i.meta && !num(i)) || i.tags?.length) && (
+                    <p class="menu-item-meta">
+                      {i.meta && !num(i) && <span>{i.meta}</span>}
+                      {i.tags?.map((tag) => <span class={`tag tag-${tag}`}>{ui.tags[tag]}</span>)}
+                    </p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+    {searchable && <p class="menu-empty" data-menu-empty hidden>{ui.noResults}</p>}
+    <p class="menu-footnote">{ui.pricesNote}{has(m.allergens_note) && <> {t(m.allergens_note, lang)}</>}</p>
+  </div>
+</section>

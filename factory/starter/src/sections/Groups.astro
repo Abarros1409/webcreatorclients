@@ -1,0 +1,46 @@
+---
+import Icon from '../components/Icon.astro';
+import { t, has, paragraphs } from '../lib/i18n.js';
+const { c, ui, lang, demo } = Astro.props;
+const g = c.groups;
+const f = g.form ?? { method: c.contact.whatsapp ? 'whatsapp' : 'mailto', to: c.contact.whatsapp ?? c.contact.email };
+const method = f.method;
+const to = f.to ?? (method === 'whatsapp' ? c.contact.whatsapp : c.contact.email);
+const usable = method === 'endpoint' ? !!f.endpoint : !!to;
+const sendLabel = method === 'whatsapp' ? ui.form.viaWhatsapp : method === 'mailto' ? ui.form.viaEmail : ui.form.send;
+---
+<section class="section groups" id="groups" data-section="groups" aria-labelledby="groups-title">
+  <div class="wrap groups-grid">
+    <div class="groups-copy">
+      <h2 id="groups-title" class="section-title reveal">{has(g.title) ? t(g.title, lang) : ui.groupsTitle}</h2>
+      <div class="prose reveal">{paragraphs(g.body, lang).map((p) => <p>{p}</p>)}</div>
+    </div>
+    {usable && (
+      <form
+        class="groups-form reveal"
+        method="post"
+        action={method === 'endpoint' ? f.endpoint : undefined}
+        data-group-form
+        data-method={method}
+        data-to={method === 'endpoint' ? undefined : to}
+        data-demo={demo ? 'true' : undefined}
+        data-subject={`${c.business.name} – ${ui.groupsTitle}`}
+      >
+        <div class="field"><label for="g-name">{ui.form.name}</label><input id="g-name" name="name" autocomplete="name" required /></div>
+        <div class="field-row">
+          <div class="field"><label for="g-date">{ui.form.date}</label><input id="g-date" name="date" type="date" required /></div>
+          <div class="field"><label for="g-guests">{ui.form.guests}</label><input id="g-guests" name="guests" type="number" inputmode="numeric" min={g.min_size ?? 1} max={g.max_size ?? 500} required /></div>
+        </div>
+        {method === 'endpoint' && (
+          <div class="field-row">
+            <div class="field"><label for="g-email">{ui.form.email}</label><input id="g-email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="g-phone">{ui.form.phone}</label><input id="g-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          </div>
+        )}
+        <div class="field"><label for="g-msg">{ui.form.message}</label><textarea id="g-msg" name="message" rows="4"></textarea></div>
+        <button class="btn btn-primary" type="submit"><Icon name={method === 'whatsapp' ? 'whatsapp' : method === 'mailto' ? 'mail' : 'users'} />{sendLabel}</button>
+        <p class="form-status" data-form-status role="status" hidden data-sent={ui.form.sent} data-demo-text={ui.form.demo}></p>
+      </form>
+    )}
+  </div>
+</section>

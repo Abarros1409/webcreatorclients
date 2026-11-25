@@ -13,3 +13,6 @@ __pycache__/
 # Claude Code skills and playbook: tooling only, never served.
 .claude/
 CLAUDE.md
+# Website factory and client work: never part of the dashboard deploy.
+factory/
+clients/

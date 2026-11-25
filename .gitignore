@@ -1,2 +1,14 @@
 __pycache__/
 *.pyc
+
+# Website factory
+factory/node_modules/
+factory/.build/
+factory/out/
+# Client work is private and this repo is public: never commit it.
+clients/*
+# ...except the fictional fixture used to test the factory
+!clients/example-cafe/
+clients/example-cafe/dist*/
+clients/example-cafe/qa/
+clients/example-cafe/status.json
