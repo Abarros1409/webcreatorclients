@@ -10,3 +10,6 @@ DEPLOY.md
 README.md
 __pycache__/
 *.pyc
+# Claude Code skills and playbook: tooling only, never served.
+.claude/
+CLAUDE.md
