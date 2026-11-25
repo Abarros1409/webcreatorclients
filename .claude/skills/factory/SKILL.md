@@ -37,7 +37,7 @@ All commands run from `factory/` (`cd factory && npm install` the first time). C
 5. **Style.** Run `npm run looks -- <slug>`, open the four phone + desktop captures, choose, and record why in `brief.md`. The suggested look is only a starting point.
 6. **Build and look.** `npm run build -- <slug> --local && npm run shots -- <slug>`. Open the phone and desktop shots in both languages. Fix what you see (copy length, crops via `focus`, section order, hero variant) before QA. For anything the starter can't do, put a component override in `clients/<slug>/overrides/sections/<Name>.astro`, built with the `frontend-design` / `impeccable` craft rules, never by editing the starter for one client.
 7. **QA** until it passes. Fix root causes; never loosen a check to get green. Then look at `qa/shots/*.png` once more.
-8. **Pitch kit**, then look at `pitch/before-after.png` and `pitch/card-a5-preview.png`. Send the user the before/after, the card preview and the phone shots (SendUserFile).
+8. **Pitch kit**, then look at `pitch/before-after.png` and `pitch/card-a5-preview.png`. Run `npm run standalone -- <slug>` and send the user the site itself (`pitch/site-nl.html`, `site-en.html`) plus the before/after and card preview (SendUserFile). Never publish a real business's demo as an Artifact.
 9. **Publish** when the user asks (`VERCEL_TOKEN` needed), or `--dry` to stage.
 
 Report back in the user's language: weakness score, demo angle, what was confirmed vs. still unverified, the questions for the owner, and whether Adam may phone (BV/NV) or must visit.

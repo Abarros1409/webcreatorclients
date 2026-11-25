@@ -20,7 +20,8 @@
     "looks": "node scripts/looks.mjs",
     "shots": "node scripts/shots.mjs",
     "menu": "node scripts/menu-parse.mjs",
-    "launch": "node scripts/launch.mjs"
+    "launch": "node scripts/launch.mjs",
+    "standalone": "node scripts/standalone.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

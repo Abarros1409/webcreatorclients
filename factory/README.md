@@ -117,6 +117,7 @@ All QA-passed demos go to one private site at `demo.<studio-domain>/<slug>-<rand
 - `before-after.png`: their site today vs. the concept, on phones, with the three points.
 - `card-a5.pdf`: printable A5 (front: "We hebben een nieuwe website voor jullie gemaakt" + phone + QR code to the demo; back: how it works, "not for you? we delete it", contacts).
 - `demo-mobile.mp4`: about 45 s phone recording (menu categories, search, hours, language switch).
+- `site-nl.html` / `site-en.html` (`npm run standalone -- <slug>`): the whole demo in one file per language, photos and fonts inside. Opens in any browser or phone without a server or link: for a private preview, or to show offline at the visit.
 - `talking-points.md` (for Adam): opening line, the three points in EN + NL, what to show in which order, whether we may phone them, questions for the owner, objection answers, follow-up rhythm.
 
 ### 9. Launch on yes — `npm run launch -- <slug> --check`, then `--url https://…`
