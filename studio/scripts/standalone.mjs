@@ -23,7 +23,18 @@ for (const [look, slug] of Object.entries(LOOKS)) {
 fs.mkdirSync(outDir, { recursive: true });
 for (const lang of ['nl', 'en']) {
   let html = fs.readFileSync(path.join(dist, lang === 'nl' ? 'index.html' : 'en/index.html'), 'utf8');
-  html = html.replace(/<script type="module" src="(\/[^"]+)"><\/script>/g, (m, src) => `<script type="module">${fs.readFileSync(path.join(dist, src), 'utf8').replace(/<\/script/gi, '<\\/script')}</script>`);
+  // Lazy chunks (the motion layer) ride along as text and load from a blob URL, since a file
+  // opened from disk has no folder of chunks next to it.
+  const chunks = [];
+  const inlineJs = (code) => code
+    .replace(/import\(\s*[`'"]\.\/([^`'"]+\.js)[`'"]\s*\)/g, (m, name) => {
+      if (!chunks.includes(name)) chunks.push(name);
+      return `import(URL.createObjectURL(new Blob([document.getElementById('chunk-${name.replace(/[^a-z0-9]/gi, '-')}').textContent],{type:'text/javascript'})))`;
+    })
+    .replace(/<\/script/gi, '<\\/script');
+  html = html.replace(/<script type="module" src="(\/[^"]+)"><\/script>/g, (m, src) => `<script type="module">${inlineJs(fs.readFileSync(path.join(dist, src), 'utf8'))}</script>`);
+  const chunkTags = chunks.map((name) => `<script type="text/plain" id="chunk-${name.replace(/[^a-z0-9]/gi, '-')}">${fs.readFileSync(path.join(dist, '_assets', name), 'utf8').replace(/<\/script/gi, '<\\/script')}</script>`).join('\n');
+  html = html.replace('</body>', `${chunkTags}\n</body>`);
   html = html.replace(/url\((["']?)(\/_assets\/[^)"']+)\1\)/g, (m, q, u) => (uri(u) ? `url(${uri(u)})` : m));
   html = html.replace(/<link rel="preload"[^>]*>/g, '');
   html = html.replace(/(src|data-poster-src)="(\/voorbeeld\/posters\/[^"]+)"/g, (m, attr, u) => `${attr}="${uri(u) ?? u}"`);
