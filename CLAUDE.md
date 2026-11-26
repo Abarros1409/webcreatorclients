@@ -10,6 +10,7 @@ Demos and client sites are built with the factory, not from scratch: `factory/RE
 
 - **This repo is public.** `clients/` is git-ignored (except the fictional `clients/example-cafe/`). Never commit client content, photos, audits or demo builds, and never publish a real business's demo as an Artifact.
 - Improve the factory for everyone (starter sections, looks, scripts) rather than hand-editing one client's build; per-client differences go in `clients/<slug>/theme.css` or `clients/<slug>/overrides/`.
+- The studio's own website lives in `studio/` (see `studio/README.md`); its four example sites are fictional showcase clients built by the factory.
 - The design workflow below applies inside the factory too: Generate and visual review are where the design skills matter most.
 
 ## The workflow for any web page

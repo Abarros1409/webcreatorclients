@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "slug": "showcase-koffie-brunch",
+  "mode": "showcase",
+  "look": "coffee-brunch",
+  "business": {
+    "name": "Morgenrood",
+    "kind": "coffee-brunch",
+    "schema_type": "CafeOrCoffeeShop",
+    "cuisine": [
+      "Koffie",
+      "Brunch"
+    ],
+    "price_range": "€€",
+    "kicker": {
+      "nl": "Koffie & brunch",
+      "en": "Coffee & brunch"
+    },
+    "tagline": {
+      "nl": "Koffie van een kleine branderij, brunch tot drie uur.",
+      "en": "Coffee from a small roastery, brunch until three."
+    },
+    "intro": {
+      "nl": "Een fictieve koffiebar, gemaakt om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional coffee bar, made to show what one of our sites looks like."
+    },
+    "story": {
+      "title": {
+        "nl": "Eerst de koffie",
+        "en": "Coffee first"
+      },
+      "body": {
+        "nl": "Op een echte site vertelt de eigenaar hier waar de bonen vandaan komen en waarom het brood elke ochtend vers is.\n\nKort, persoonlijk, en in twee talen voor de buren en de toeristen.",
+        "en": "On a real site the owner explains here where the beans come from and why the bread is fresh every morning.\n\nShort, personal, and in two languages for the neighbours and the tourists."
+      }
+    }
+  },
+  "contact": {
+    "phone": "+31100000000",
+    "phone_display": "010 000 00 00",
+    "email": "hallo@example.com",
+    "address": {
+      "street": "Voorbeeldstraat 3",
+      "postal_code": "3000 AA",
+      "city": "Rotterdam",
+      "country": "NL"
+    },
+    "geo": {
+      "lat": 51.9205,
+      "lng": 4.4669
+    },
+    "maps_url": "https://www.openstreetmap.org/?mlat=51.9205&mlon=4.4669#map=17/51.9205/4.4669"
+  },
+  "hours": {
+    "timezone": "Europe/Amsterdam",
+    "regular": [
+      {
+        "days": [
+          "mo",
+          "tu",
+          "we",
+          "th",
+          "fr"
+        ],
+        "opens": "08:00",
+        "closes": "16:00"
+      },
+      {
+        "days": [
+          "sa",
+          "su"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "note": {
+      "nl": "Brunch tot 15:00.",
+      "en": "Brunch until 15:00."
+    }
+  },
+  "menu": {
+    "title": {
+      "nl": "Menu",
+      "en": "Menu"
+    },
+    "currency": "EUR",
+    "sections": [
+      {
+        "id": "koffie",
+        "title": {
+          "nl": "Koffie",
+          "en": "Coffee"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Espresso",
+              "en": "Espresso"
+            },
+            "price": 2.8
+          },
+          {
+            "name": {
+              "nl": "Flat white",
+              "en": "Flat white"
+            },
+            "price": 4.2,
+            "featured": true
+          },
+          {
+            "name": {
+              "nl": "Cappuccino",
+              "en": "Cappuccino"
+            },
+            "price": 3.9
+          },
+          {
+            "name": {
+              "nl": "Filterkoffie",
+              "en": "Filter coffee"
+            },
+            "price": 3.8,
+            "description": {
+              "nl": "Wisselende bonen.",
+              "en": "Rotating beans."
+            }
+          }
+        ]
+      },
+      {
+        "id": "brunch",
+        "title": {
+          "nl": "Brunch",
+          "en": "Brunch"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Shakshuka",
+              "en": "Shakshuka"
+            },
+            "price": 13.5,
+            "description": {
+              "nl": "Twee eieren, tomaat, paprika, zuurdesem.",
+              "en": "Two eggs, tomato, pepper, sourdough."
+            },
+            "tags": [
+              "vegetarian"
+            ],
+            "featured": true
+          },
+          {
+            "name": {
+              "nl": "Zuurdesem met avocado",
+              "en": "Sourdough with avocado"
+            },
+            "price": 11.0,
+            "description": {
+              "nl": "Limoen, chili, dukkah.",
+              "en": "Lime, chilli, dukkah."
+            },
+            "tags": [
+              "vegan"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Granola",
+              "en": "Granola"
+            },
+            "price": 8.5,
+            "description": {
+              "nl": "Yoghurt, seizoensfruit, honing.",
+              "en": "Yoghurt, seasonal fruit, honey."
+            },
+            "tags": [
+              "vegetarian"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Pannenkoekjes",
+              "en": "Pancakes"
+            },
+            "price": 10.5,
+            "description": {
+              "nl": "Ricotta, bessen, ahornsiroop.",
+              "en": "Ricotta, berries, maple syrup."
+            },
+            "tags": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "zoet",
+        "title": {
+          "nl": "Zoet",
+          "en": "Sweet"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Bananenbrood",
+              "en": "Banana bread"
+            },
+            "price": 4.0
+          },
+          {
+            "name": {
+              "nl": "Kaneelbroodje",
+              "en": "Cinnamon bun"
+            },
+            "price": 3.8
+          }
+        ]
+      }
+    ],
+    "allergens_note": {
+      "nl": "Vraag ons naar allergenen.",
+      "en": "Ask us about allergens."
+    }
+  },
+  "booking": {
+    "provider": "none"
+  },
+  "ordering": {
+    "url": "https://www.example.com/",
+    "label": {
+      "nl": "Bestel om mee te nemen",
+      "en": "Order to take away"
+    }
+  },
+  "groups": {
+    "enabled": true,
+    "title": {
+      "nl": "Ontbijt voor je team",
+      "en": "Breakfast for your team"
+    },
+    "body": {
+      "nl": "Voor groepen vanaf tien personen openen we op afspraak eerder.",
+      "en": "For groups of ten or more we open earlier by appointment."
+    },
+    "form": {
+      "method": "mailto",
+      "to": "hallo@example.com"
+    }
+  },
+  "media": {
+    "hero": {
+      "file": "barista.webp",
+      "alt": {
+        "nl": "Een barista drukt gemalen koffie aan in een portafilter",
+        "en": "A barista tamping ground coffee into a portafilter"
+      },
+      "origin": "stand-in",
+      "credit": "Shixart1985, CC BY 2.0 (Wikimedia Commons)",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Barista_prepares_espresso_at_coffee_shop.jpg",
+      "focus": "45% 50%"
+    },
+    "story": {
+      "file": "espresso.webp",
+      "alt": {
+        "nl": "Espresso loopt uit een portafilter in een kopje",
+        "en": "Espresso running from a portafilter into a cup"
+      },
+      "origin": "stand-in",
+      "credit": "Takeaway, CC BY-SA 3.0 (Wikimedia Commons)",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Double_ristretto_naked_portafilter.jpg"
+    }
+  },
+  "seo": {
+    "title": {
+      "nl": "Morgenrood · voorbeeld van Amuse Studio",
+      "en": "Morgenrood · Amuse Studio example"
+    },
+    "description": {
+      "nl": "Een fictieve koffiebar in Rotterdam, gemaakt door Amuse Studio om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional coffee bar in Rotterdam, made by Amuse Studio to show what one of our sites looks like."
+    }
+  }
+}

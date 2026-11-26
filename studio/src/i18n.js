@@ -1,0 +1,276 @@
+// All copy for the studio site, Dutch first. Prices follow the strategy plan v0.1 (not final).
+export const CONTACT = {
+  email: 'hallo@amusestudio.nl',
+  whatsapp: null, // E.164 without '+', e.g. '31612345678'. Shown only when set.
+  city: 'Rotterdam',
+};
+
+export const LOOKS = [
+  { id: 'bruin-cafe', name: 'Café De Ruggespraak' },
+  { id: 'koffie-brunch', name: 'Morgenrood' },
+  { id: 'diner', name: 'Getij' },
+  { id: 'streetfood', name: 'Vlam' },
+];
+
+export const T = {
+  nl: {
+    lang: 'nl',
+    other: 'en',
+    otherLabel: 'English',
+    otherShort: 'EN',
+    meta: {
+      title: 'Amuse Studio · websites voor cafés, bars en restaurants in Rotterdam',
+      description: 'Wij bouwen eerst je nieuwe website, gratis. Bevalt hij, dan staat hij binnen een week online en houden wij hem bij. Zo niet, dan verwijderen we hem.',
+    },
+    skip: 'Naar de inhoud',
+    nav: { how: 'Werkwijze', what: 'Wat je krijgt', price: 'Prijzen', faq: 'Vragen' },
+    cta: 'Vraag je voorbeeld aan',
+    hero: {
+      title: 'je nieuwe website staat al klaar.',
+      lead: 'Wij maken websites voor zelfstandige cafés, bars en restaurants in Rotterdam. Eerst bouwen we jouw nieuwe site, gratis. Bevalt hij, dan staat hij binnen een week online. Zo niet, dan verwijderen we hem.',
+      secondary: 'Zo werkt het',
+      phoneLabel: 'Kies een voorbeeld',
+      try: 'Probeer het zelf',
+      looks: { 'bruin-cafe': 'Bruin café', 'koffie-brunch': 'Koffie & brunch', diner: 'Restaurant', streetfood: 'Streetfood' },
+      note: 'Vier fictieve voorbeeldzaken. Tik op de telefoon, scroll erdoorheen, zoek in het menu, wissel van taal.',
+      frameTitle: 'Voorbeeldsite van {name}, een fictieve zaak',
+    },
+    how: {
+      title: 'eerst proeven, dan beslissen.',
+      intro: 'Een amuse krijg je voordat je bestelt. Zo werken wij ook.',
+      steps: [
+        { course: 'amuse', title: 'We maken je site, gratis.', text: 'We bekijken je huidige site en je Google-pagina en bouwen je nieuwe site met je eigen menu, tijden en sfeer. Jij hoeft niets aan te leveren.' },
+        { course: 'proeverij', title: 'We laten hem zien in je zaak.', text: 'Op een rustig moment komen we langs en laten we hem zien op je telefoon. Twee minuten. Niets voor jou? Dan verwijderen we hem.' },
+        { course: 'hoofdgerecht', title: 'Binnen een week online.', text: 'Je eigen foto’s en teksten erin, je domein gekoppeld, je Google-pagina bijgewerkt. Jij houdt je handen vrij voor de zaak.' },
+        { course: 'koffie na', title: 'Wij houden hem bij.', text: 'Nieuwe kaart, andere prijzen, vakantietijden: stuur een WhatsApp en wij passen het aan. Elke maand controleren we of alles werkt.' },
+      ],
+    },
+    what: {
+      title: 'gemaakt voor gasten met een telefoon in de hand.',
+      intro: 'Dit staat op elke site die we maken. Probeer het hieronder.',
+      menu: {
+        title: 'Je menu als echte tekst',
+        text: 'Geen pdf meer. Je kaart leest prettig op een telefoon, is doorzoekbaar en Google vindt hem.',
+        search: 'Zoek in het menu',
+        empty: 'Niets gevonden.',
+        items: [
+          { name: 'Bitterballen (8)', meta: 'met grove mosterd', price: '8,50' },
+          { name: 'Ossenworst', meta: 'met piccalilly', price: '7,50' },
+          { name: 'Oude kaas', meta: 'vegetarisch', price: '7,00' },
+          { name: 'Tosti ham-kaas', meta: '', price: '5,50' },
+          { name: 'Huispils', meta: 'van de tap', price: '3,80' },
+          { name: 'Tripel', meta: 'België · 8,5%', price: '6,50' },
+          { name: 'Korenwijn', meta: 'jenever', price: '5,00' },
+        ],
+      },
+      hours: {
+        title: 'Altijd de juiste tijden',
+        text: 'Open of dicht, live op Rotterdamse tijd. Feestdagen en vakanties zet je er met één bericht in.',
+        open: 'Nu open', closed: 'Nu gesloten', until: 'tot {t}', opens: 'open om {t}', opensDay: 'open {d} om {t}',
+        days: ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'],
+        daysLong: ['maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag', 'zondag'],
+        place: 'Café De Ruggespraak (voorbeeld)',
+      },
+      lang: {
+        title: 'Nederlands én Engels',
+        text: 'Rotterdam zit vol toeristen en expats. Je hele site staat er in twee talen, ook je menu.',
+        sample: [
+          { nl: 'Ossenworst', en: 'Ossenworst (raw beef sausage)' },
+          { nl: 'met piccalilly', en: 'with piccalilli' },
+          { nl: 'Bel voor een tafel', en: 'Call for a table' },
+        ],
+      },
+      speed: {
+        title: 'Snel, ook op 4G',
+        text: 'Gemeten in november 2026 bij een Rotterdams eethuis: de huidige site tegenover de versie die wij ervan maakten.',
+        before: 'Huidige site', after: 'Onze versie',
+        beforeValue: '7,3 MB', afterValue: '0,25 MB',
+        beforeNote: 'ongeveer 10 seconden tot hij geladen is', afterNote: 'Google-snelheidsscore 98 van 100',
+      },
+      book: {
+        title: 'Reserveren of bestellen in één tik',
+        text: 'We koppelen het systeem dat je al gebruikt. Geen systeem? Dan wordt het WhatsApp of bellen. Op een telefoon staan bellen, route en reserveren altijd onderin beeld.',
+        systems: ['Zenchef', 'Formitable', 'Resengo', 'OpenTable', 'TheFork', 'Thuisbezorgd', 'WhatsApp', 'Telefoon'],
+      },
+      care: {
+        title: 'Wijzigingen via WhatsApp',
+        text: 'Je hoeft nergens in te loggen. Tot ongeveer een uur werk per maand zit in je abonnement.',
+        chat: [
+          { from: 'them', text: 'Hoi! Vanaf maandag kost de ossenworst € 8. En 31 december zijn we om 18:00 dicht.' },
+          { from: 'us', text: 'Staat erin, en de oudejaarstijden ook. Fijne feestdagen!' },
+        ],
+        chatNote: 'Voorbeeldgesprek',
+      },
+      also: {
+        title: 'Ook altijd inbegrepen',
+        items: ['Hosting, beveiliging en je domein', 'Gegevens voor Google: tijden, adres, menu', 'Bellen en route met één tik', 'Aanvraagformulier voor groepen', 'Geen cookies of trackers', 'Elke maand een controle'],
+      },
+    },
+    price: {
+      title: 'de kaart.',
+      intro: 'Prijzen exclusief btw. Na de minimale looptijd maandelijks opzegbaar.',
+      lines: [
+        { name: 'Amuse', desc: 'Je nieuwe site als voorbeeld, gemaakt voordat je iets beslist.', price: 'gratis' },
+        { name: 'Website met onderhoud', desc: 'Eenmalig € 450, daarna per maand. Minimaal twaalf maanden.', price: '€ 59 p/m' },
+        { name: 'Liever in één keer', desc: 'Inclusief het eerste jaar hosting. Daarna € 25 per maand voor hosting.', price: '€ 1.450' },
+      ],
+      special: { name: 'Oprichtersaanbod', desc: 'Voor de eerste drie zaken: geen opstartkosten. In ruil vragen we een eerlijke review en twee introducties.' },
+      small: '€ 59 per maand is ongeveer één extra tafel voor twee. Je domein staat op jouw naam: na de looptijd neem je je site mee als je wilt.',
+    },
+    faq: {
+      title: 'vragen.',
+      items: [
+        { q: 'Moet ik zelf iets doen?', a: 'Nee. We maken het voorbeeld met wat al online over je zaak staat. Pas als je ja zegt, vragen we om je eigen foto’s, je laatste menu en een paar logins.' },
+        { q: 'Ik heb al een website.', a: 'Daarom laten we de oude en de nieuwe naast elkaar zien op je telefoon. Jij beslist of het verschil het waard is.' },
+        { q: 'Werken jullie met mijn reserveringssysteem?', a: 'Ja, we koppelen het systeem dat je al hebt, zoals Zenchef, Formitable of Resengo. Heb je er geen, dan maken we een knop voor WhatsApp of bellen.' },
+        { q: 'Van wie is de website?', a: 'Je domeinnaam staat op jouw naam. Na de minimale looptijd van twaalf maanden kun je opzeggen en je site meenemen voor € 150 overdrachtskosten.' },
+        { q: 'Gebruiken jullie AI?', a: 'Ja, we werken met moderne tools, ook AI, zodat we snel kunnen bouwen. Wij controleren elke site zelf op telefoon en computer voordat jij hem ziet.' },
+        { q: 'Werken jullie ook buiten Rotterdam?', a: 'We beginnen in Rotterdam, zodat we langs kunnen komen. Zit je ergens anders? Stuur ons een bericht, dan kijken we wat kan.' },
+      ],
+    },
+    contact: {
+      title: 'zullen we er een voor je maken?',
+      text: 'Stuur ons de naam van je zaak. Wij maken je voorbeeld en laten het je zien, in de zaak of op je telefoon.',
+      email: 'Mail ons',
+      whatsapp: 'WhatsApp ons',
+      subject: 'Voorbeeld voor mijn zaak',
+      who: 'Andrés en Adam, Rotterdam',
+      card: { for: 'Voor jouw zaak', title: 'We hebben een nieuwe website voor jullie gemaakt.', sub: 'Scan de code en bekijk hem op je telefoon.', caption: 'Dit kaartje laten we achter na ons bezoek.' },
+    },
+    footer: {
+      line: 'Websites voor zelfstandige cafés, bars en restaurants.',
+      privacy: 'Deze site gebruikt geen cookies.',
+      credits: 'Foto’s in de voorbeelden: Shixart1985 (CC BY 2.0) en Takeaway (CC BY-SA 3.0), via Wikimedia Commons. De voorbeeldzaken zijn fictief.',
+    },
+  },
+  en: {
+    lang: 'en',
+    other: 'nl',
+    otherLabel: 'Nederlands',
+    otherShort: 'NL',
+    meta: {
+      title: 'Amuse Studio · websites for cafés, bars and restaurants in Rotterdam',
+      description: 'We build your new website first, for free. Like it, and it’s live within a week and we keep it up to date. If not, we delete it.',
+    },
+    skip: 'Skip to content',
+    nav: { how: 'How it works', what: 'What you get', price: 'Prices', faq: 'Questions' },
+    cta: 'Ask for your concept',
+    hero: {
+      title: 'your new website is already made.',
+      lead: 'We make websites for independent cafés, bars and restaurants in Rotterdam. First we build your new site, for free. Like it, and it’s live within a week. If not, we delete it.',
+      secondary: 'How it works',
+      phoneLabel: 'Pick an example',
+      try: 'Try it yourself',
+      looks: { 'bruin-cafe': 'Brown café', 'koffie-brunch': 'Coffee & brunch', diner: 'Restaurant', streetfood: 'Street food' },
+      note: 'Four fictional example places. Tap the phone, scroll through, search the menu, switch the language.',
+      frameTitle: 'Example site for {name}, a fictional place',
+    },
+    how: {
+      title: 'taste first, then decide.',
+      intro: 'An amuse arrives before you order. That’s how we work too.',
+      steps: [
+        { course: 'amuse', title: 'We make your site, for free.', text: 'We look at your current site and your Google page, and build your new site with your own menu, hours and feel. You don’t have to send us anything.' },
+        { course: 'tasting', title: 'We show it to you in person.', text: 'At a quiet moment we drop by and show it on your phone. Two minutes. Not for you? Then we delete it.' },
+        { course: 'main course', title: 'Live within a week.', text: 'Your own photos and texts in, your domain connected, your Google page updated. You keep your hands free for the business.' },
+        { course: 'coffee', title: 'We keep it up to date.', text: 'New menu, new prices, holiday hours: send a WhatsApp and we change it. Every month we check that everything works.' },
+      ],
+    },
+    what: {
+      title: 'made for guests with a phone in their hand.',
+      intro: 'Every site we make has these. Try them below.',
+      menu: {
+        title: 'Your menu as real text',
+        text: 'No more PDF. Your menu reads well on a phone, guests can search it, and Google finds it.',
+        search: 'Search the menu',
+        empty: 'Nothing found.',
+        items: [
+          { name: 'Bitterballen (8)', meta: 'with coarse mustard', price: '8.50' },
+          { name: 'Ossenworst', meta: 'with piccalilli', price: '7.50' },
+          { name: 'Aged cheese', meta: 'vegetarian', price: '7.00' },
+          { name: 'Ham and cheese toastie', meta: '', price: '5.50' },
+          { name: 'House lager', meta: 'on tap', price: '3.80' },
+          { name: 'Tripel', meta: 'Belgium · 8.5%', price: '6.50' },
+          { name: 'Korenwijn', meta: 'malt jenever', price: '5.00' },
+        ],
+      },
+      hours: {
+        title: 'Always the right hours',
+        text: 'Open or closed, live on Rotterdam time. Holidays go in with one message.',
+        open: 'Open now', closed: 'Closed now', until: 'until {t}', opens: 'opens at {t}', opensDay: 'opens {d} at {t}',
+        days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        daysLong: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        place: 'Café De Ruggespraak (example)',
+      },
+      lang: {
+        title: 'Dutch and English',
+        text: 'Rotterdam is full of tourists and internationals. Your whole site comes in two languages, menu included.',
+        sample: [
+          { nl: 'Ossenworst', en: 'Ossenworst (raw beef sausage)' },
+          { nl: 'met piccalilly', en: 'with piccalilli' },
+          { nl: 'Bel voor een tafel', en: 'Call for a table' },
+        ],
+      },
+      speed: {
+        title: 'Fast, even on 4G',
+        text: 'Measured in November 2026 at a Rotterdam eatery: their current site against the version we made of it.',
+        before: 'Current site', after: 'Our version',
+        beforeValue: '7.3 MB', afterValue: '0.25 MB',
+        beforeNote: 'about 10 seconds to load', afterNote: 'Google speed score 98 out of 100',
+      },
+      book: {
+        title: 'Book or order in one tap',
+        text: 'We connect the system you already use. No system? Then it’s WhatsApp or a phone call. On a phone, call, directions and booking always sit at the bottom of the screen.',
+        systems: ['Zenchef', 'Formitable', 'Resengo', 'OpenTable', 'TheFork', 'Thuisbezorgd', 'WhatsApp', 'Phone'],
+      },
+      care: {
+        title: 'Changes by WhatsApp',
+        text: 'Nothing to log into. About an hour of changes a month is included.',
+        chat: [
+          { from: 'them', text: 'Hi! From Monday the ossenworst is € 8. And on 31 December we close at 18:00.' },
+          { from: 'us', text: 'Done, the New Year’s Eve hours too. Happy holidays!' },
+        ],
+        chatNote: 'Example conversation',
+      },
+      also: {
+        title: 'Always included',
+        items: ['Hosting, security and your domain', 'Data for Google: hours, address, menu', 'Call and directions in one tap', 'Group enquiry form', 'No cookies or trackers', 'A check every month'],
+      },
+    },
+    price: {
+      title: 'the menu.',
+      intro: 'Prices excluding VAT. Cancel monthly after the minimum term.',
+      lines: [
+        { name: 'Amuse', desc: 'Your new site as a concept, made before you decide anything.', price: 'free' },
+        { name: 'Website with care', desc: '€ 450 once, then monthly. Twelve months minimum.', price: '€ 59 p/m' },
+        { name: 'Pay once', desc: 'Includes the first year of hosting. After that € 25 a month for hosting.', price: '€ 1,450' },
+      ],
+      special: { name: 'Founding offer', desc: 'For the first three places: no setup fee. In return we ask for an honest review and two introductions.' },
+      small: '€ 59 a month is about one extra table for two. Your domain is in your name: after the term you can take your site with you.',
+    },
+    faq: {
+      title: 'questions.',
+      items: [
+        { q: 'Do I have to do anything?', a: 'No. We make the concept from what’s already online about your place. Only when you say yes do we ask for your own photos, your latest menu and a few logins.' },
+        { q: 'I already have a website.', a: 'That’s why we show the old and the new one side by side on your phone. You decide whether the difference is worth it.' },
+        { q: 'Do you work with my booking system?', a: 'Yes, we connect the system you already have, such as Zenchef, Formitable or Resengo. No system? Then we add a WhatsApp or call button.' },
+        { q: 'Who owns the website?', a: 'Your domain is registered in your name. After the twelve-month minimum you can cancel and take your site with you for a € 150 handover fee.' },
+        { q: 'Do you use AI?', a: 'Yes, we work with modern tools, AI included, so we can build fast. We check every site ourselves on phone and computer before you see it.' },
+        { q: 'Do you work outside Rotterdam?', a: 'We start in Rotterdam, so we can drop by. Somewhere else? Send us a message and we’ll see what’s possible.' },
+      ],
+    },
+    contact: {
+      title: 'shall we make one for you?',
+      text: 'Send us the name of your place. We’ll make your concept and show it to you, in person or on your phone.',
+      email: 'Email us',
+      whatsapp: 'WhatsApp us',
+      subject: 'A concept for my place',
+      who: 'Andrés and Adam, Rotterdam',
+      card: { for: 'For your place', title: 'We built you a new website.', sub: 'Scan the code to see it on your phone.', caption: 'We leave this card behind after our visit.' },
+    },
+    footer: {
+      line: 'Websites for independent cafés, bars and restaurants.',
+      privacy: 'This site uses no cookies.',
+      credits: 'Photos in the examples: Shixart1985 (CC BY 2.0) and Takeaway (CC BY-SA 3.0), via Wikimedia Commons. The example places are fictional.',
+    },
+  },
+};

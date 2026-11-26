@@ -16,3 +16,5 @@ CLAUDE.md
 # Website factory and client work: never part of the dashboard deploy.
 factory/
 clients/
+# Studio site: deployed as its own project, never with the dashboard.
+studio/

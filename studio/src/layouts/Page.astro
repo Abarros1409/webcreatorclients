@@ -1,0 +1,408 @@
+---
+import '../styles/global.css';
+import Logo from '../components/Logo.astro';
+import QRCode from 'qrcode';
+import { T, LOOKS, CONTACT } from '../i18n.js';
+
+const { lang } = Astro.props;
+const t = T[lang];
+const site = 'https://amusestudio.nl';
+const path = (l) => (l === 'nl' ? '/' : '/en/');
+const demo = (look) => `/voorbeeld/${look}/${lang === 'en' ? 'en/' : ''}`;
+const poster = (look) => `/voorbeeld/posters/${look}-${lang}.webp`;
+const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent(t.contact.subject)}`;
+const wa = CONTACT.whatsapp ? `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(t.contact.subject)}` : null;
+const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '');
+const first = LOOKS[0];
+const qr = await QRCode.toString(`${site}${lang === 'en' ? '/en/' : '/'}`, { type: 'svg', margin: 0, color: { dark: '#1b1813', light: '#0000' } });
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Amuse Studio',
+  url: site,
+  email: CONTACT.email,
+  description: t.meta.description,
+  areaServed: { '@type': 'City', name: 'Rotterdam' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Rotterdam', addressCountry: 'NL' },
+  knowsLanguage: ['nl', 'en'],
+};
+const hoursDemo = { mo: [['14:00', '01:00']], tu: [['14:00', '01:00']], we: [['14:00', '01:00']], th: [['14:00', '01:00']], fr: [['12:00', '02:00']], sa: [['12:00', '02:00']], su: [['12:00', '00:00']] };
+const keys = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
+const favicon = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#173a2b"/><ellipse cx="15.5" cy="15" rx="8" ry="6" transform="rotate(-38 15.5 15)" fill="#e2462c"/><path d="M21 21c3 2.8 6 6 9.5 10" fill="none" stroke="#efe9dc" stroke-width="3" stroke-linecap="round"/></svg>')}`;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={`${site}${path(lang)}`} />
+    <link rel="alternate" hreflang="nl" href={`${site}/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    <meta name="theme-color" content="#173a2b" />
+    <link rel="icon" href={favicon} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={`${site}${path(lang)}`} />
+    <meta property="og:image" content={`${site}/og.png`} />
+    <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <link rel="preload" as="image" href={poster(LOOKS[0].id)} fetchpriority="high" />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+
+    <header class="top" data-top>
+      <div class="wrap top-inner">
+        <a href={path(lang)} aria-label="Amuse Studio"><Logo /></a>
+        <nav class="nav" aria-label={lang === 'nl' ? 'Hoofdmenu' : 'Main'}>
+          <ul>
+            <li><a href="#werkwijze">{t.nav.how}</a></li>
+            <li><a href="#wat-je-krijgt">{t.nav.what}</a></li>
+            <li><a href="#prijzen">{t.nav.price}</a></li>
+            <li><a href="#vragen">{t.nav.faq}</a></li>
+          </ul>
+        </nav>
+        <div class="top-actions">
+          <a class="lang" href={path(t.other)} hreflang={t.other} lang={t.other}><span class="full">{t.otherLabel}</span><span class="short">{t.otherShort}</span></a>
+          <a class="btn btn-tomato btn-sm" href="#contact">{t.cta}</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="wrap hero-grid">
+          <div>
+            <h1 id="hero-title">{t.hero.title}</h1>
+            <p class="lead">{t.hero.lead}</p>
+            <div class="hero-actions">
+              <a class="btn btn-tomato" href="#contact">{t.cta}</a>
+              <a class="link" href="#werkwijze">{t.hero.secondary}</a>
+            </div>
+          </div>
+          <div class="stage">
+            <div class="phone">
+              <div class="screen" data-screen data-src={demo(first.id)} data-title={fill(t.hero.frameTitle, { name: first.name })} data-title-template={t.hero.frameTitle}>
+                <img class="poster" src={poster(first.id)} width="316" height="684" alt={fill(t.hero.frameTitle, { name: first.name })} data-poster fetchpriority="high" />
+                <button type="button" class="try" data-try><span>{t.hero.try}</span></button>
+              </div>
+            </div>
+            <div class="switch" role="group" aria-label={t.hero.phoneLabel}>
+              {LOOKS.map((l, i) => (
+                <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-look={l.id} data-src={demo(l.id)} data-poster-src={poster(l.id)} data-name={l.name}>{t.hero.looks[l.id]}</button>
+              ))}
+            </div>
+            <p class="stage-note">{t.hero.note}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band how" id="werkwijze" aria-labelledby="how-title">
+        <div class="wrap">
+          <header class="band-head">
+            <h2 id="how-title">{t.how.title}</h2>
+            <p>{t.how.intro}</p>
+          </header>
+          <ol class="courses">
+            {t.how.steps.map((s) => (
+              <li class="course">
+                <p class="course-name">{s.course}</p>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="band what" id="wat-je-krijgt" aria-labelledby="what-title">
+        <div class="wrap">
+          <header class="band-head">
+            <h2 id="what-title">{t.what.title}</h2>
+            <p>{t.what.intro}</p>
+          </header>
+
+          <div class="feature">
+            <div class="feature-copy">
+              <h3>{t.what.menu.title}</h3>
+              <p>{t.what.menu.text}</p>
+            </div>
+            <div class="menu-demo" data-menu-demo>
+              <label>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.4-4.4" /></svg>
+                <span class="visually-hidden">{t.what.menu.search}</span>
+                <input type="search" placeholder={t.what.menu.search} autocomplete="off" />
+              </label>
+              <ul>
+                {t.what.menu.items.map((i) => (
+                  <li data-q={`${i.name} ${i.meta}`.toLowerCase()}>
+                    <span class="n">{i.name}</span>
+                    {i.meta && <span class="m">{i.meta}</span>}
+                    <span class="dots" aria-hidden="true"></span>
+                    <span class="p">{i.price}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="empty" hidden data-empty>{t.what.menu.empty}</p>
+            </div>
+          </div>
+
+          <div class="duo">
+            <div class="hours-card">
+              <h3>{t.what.hours.title}</h3>
+              <p>{t.what.hours.text}</p>
+              <p class="badge" data-badge><span class="dot" aria-hidden="true"></span><span data-badge-text>{t.what.hours.place}</span></p>
+              <ul class="week">
+                {keys.map((k, i) => <li data-day={k}><span>{t.what.hours.daysLong[i]}</span><span>{hoursDemo[k].map(([o, c]) => `${o}–${c}`).join(', ')}</span></li>)}
+              </ul>
+              <p class="place">{t.what.hours.place}</p>
+            </div>
+            <div class="lang-card">
+              <h3>{t.what.lang.title}</h3>
+              <p>{t.what.lang.text}</p>
+              <div class="toggle" role="group" aria-label={t.what.lang.title}>
+                <button type="button" aria-pressed="true" data-lang-set="nl">NL</button>
+                <button type="button" aria-pressed="false" data-lang-set="en">EN</button>
+              </div>
+              <div class="lang-sample" data-lang-sample aria-live="polite">
+                {t.what.lang.sample.map((s, i) => <span class={`s${i}`} data-nl={s.nl} data-en={s.en}>{s.nl}</span>)}
+              </div>
+            </div>
+          </div>
+
+          <div class="speed" data-speed>
+            <div class="feature-copy">
+              <h3>{t.what.speed.title}</h3>
+              <p>{t.what.speed.text}</p>
+            </div>
+            <div class="bars">
+              <div class="bar-row">
+                <div class="bar-label"><span class="bar-name">{t.what.speed.before}</span><span>{t.what.speed.beforeNote}</span></div>
+                <div class="bar-label"><strong>{t.what.speed.beforeValue}</strong></div>
+                <div class="bar bar-before"><i style="--w: 100%"></i></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span class="bar-name">{t.what.speed.after}</span><span>{t.what.speed.afterNote}</span></div>
+                <div class="bar-label"><strong>{t.what.speed.afterValue}</strong></div>
+                <div class="bar bar-after"><i style="--w: 3.4%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="duo">
+            <div class="book-card">
+              <h3>{t.what.book.title}</h3>
+              <p>{t.what.book.text}</p>
+              <ul class="systems">{t.what.book.systems.map((s) => <li>{s}</li>)}</ul>
+            </div>
+            <div class="care-card">
+              <h3>{t.what.care.title}</h3>
+              <p>{t.what.care.text}</p>
+              <div class="chat">
+                {t.what.care.chat.map((m) => <p class={`bubble ${m.from}`}>{m.text}</p>)}
+                <p class="chat-note">{t.what.care.chatNote}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="also">
+            <h3>{t.what.also.title}</h3>
+            <ul>{t.what.also.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="band price" id="prijzen" aria-labelledby="price-title">
+        <div class="wrap">
+          <div class="card">
+            <div class="card-head">
+              <svg class="spoon" viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="14.5" cy="14" rx="9.5" ry="7" transform="rotate(-38 14.5 14)" fill="var(--tomato)" /><path d="M21 20.5c3.6 3.4 7.4 7.4 11.6 12.4" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" /></svg>
+              <h2 id="price-title">{t.price.title}</h2>
+              <p>{t.price.intro}</p>
+            </div>
+            {t.price.lines.map((l) => (
+              <div class="line">
+                <div class="line-top"><span class="line-name">{l.name}</span><span class="line-dots" aria-hidden="true"></span><span class="line-price">{l.price}</span></div>
+                <p>{l.desc}</p>
+              </div>
+            ))}
+            <div class="special"><strong>{t.price.special.name}</strong><p>{t.price.special.desc}</p></div>
+            <p class="card-small">{t.price.small}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="vragen" aria-labelledby="faq-title">
+        <div class="wrap faq-grid">
+          <header class="band-head"><h2 id="faq-title">{t.faq.title}</h2></header>
+          <div class="qa">
+            {t.faq.items.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="band contact" id="contact" aria-labelledby="contact-title">
+        <div class="wrap contact-grid">
+          <div class="contact-inner">
+            <h2 id="contact-title">{t.contact.title}</h2>
+            <p>{t.contact.text}</p>
+            <div class="contact-actions">
+              <a class="btn btn-tomato" href={mail}>{t.contact.email}</a>
+              {wa && <a class="btn btn-line" href={wa} target="_blank" rel="noopener">{t.contact.whatsapp}</a>}
+            </div>
+            <p class="who">{t.contact.who}, <a class="link" href={mail}>{CONTACT.email}</a></p>
+          </div>
+          <figure>
+            <div class="a5" aria-hidden="true">
+              <p class="a5-for">{t.contact.card.for}</p>
+              <p class="a5-title">{t.contact.card.title}</p>
+              <p class="a5-sub">{t.contact.card.sub}</p>
+              <div class="a5-qr"><Fragment set:html={qr} /><Logo /></div>
+            </div>
+            <figcaption class="a5-caption">{t.contact.card.caption}</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div><Logo size="lg" /><p style="margin-top:1rem;max-width:30ch">{t.footer.line}</p></div>
+          <ul>
+            <li><a href="#werkwijze">{t.nav.how}</a></li>
+            <li><a href="#wat-je-krijgt">{t.nav.what}</a></li>
+            <li><a href="#prijzen">{t.nav.price}</a></li>
+            <li><a href="#vragen">{t.nav.faq}</a></li>
+          </ul>
+          <ul>
+            <li><a href={mail}>{CONTACT.email}</a></li>
+            <li><a href={path(t.other)} hreflang={t.other} lang={t.other}>{t.otherLabel}</a></li>
+          </ul>
+        </div>
+        <div class="foot-small">
+          <p>© {new Date().getFullYear()} Amuse Studio · {CONTACT.city}</p>
+          <p>{t.footer.privacy}</p>
+          <p>{t.footer.credits}</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="application/json" id="studio-data" set:html={JSON.stringify({ hours: hoursDemo, ui: t.what.hours })} />
+    <script>
+      const root = document.documentElement;
+      root.classList.add('js');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce) root.classList.add('motion');
+      const data = JSON.parse(document.getElementById('studio-data').textContent);
+
+      // Header shadow once the page scrolls.
+      const top = document.querySelector('[data-top]');
+      const onScroll = () => top.classList.toggle('is-scrolled', scrollY > 8);
+      onScroll();
+      addEventListener('scroll', onScroll, { passive: true });
+
+      // Hero phone: a poster first; the live example site loads when someone wants to try it.
+      const screen = document.querySelector('[data-screen]');
+      const posterImg = screen.querySelector('[data-poster]');
+      const tryBtn = screen.querySelector('[data-try]');
+      const buttons = [...document.querySelectorAll('[data-look]')];
+      let frame = null;
+      // "demo:<look>" = an embedded copy (one-file preview); otherwise a normal URL.
+      const load = (f, src) => {
+        if (src.startsWith('demo:')) f.srcdoc = JSON.parse(document.getElementById(`demo-${src.slice(5)}`).textContent);
+        else f.src = src;
+      };
+      const goLive = (src, title) => {
+        if (!frame) {
+          frame = document.createElement('iframe');
+          frame.addEventListener('load', () => { screen.classList.remove('is-loading'); screen.classList.add('is-live'); });
+          screen.classList.add('is-loading');
+          frame.title = title;
+          load(frame, src);
+          screen.appendChild(frame);
+          tryBtn.remove();
+          return;
+        }
+        screen.classList.add('is-loading');
+        frame.title = title;
+        setTimeout(() => load(frame, src), reduce ? 0 : 180);
+      };
+      tryBtn.addEventListener('click', () => goLive(screen.dataset.src, screen.dataset.title));
+      buttons.forEach((b) => b.addEventListener('click', () => {
+        if (b.getAttribute('aria-pressed') === 'true' && frame) return;
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        const title = screen.dataset.titleTemplate.replace('{name}', b.dataset.name);
+        posterImg.src = b.dataset.posterSrc;
+        posterImg.alt = title;
+        screen.dataset.src = b.dataset.src;
+        screen.dataset.title = title;
+        goLive(b.dataset.src, title);
+      }));
+
+      // Menu search demo.
+      const md = document.querySelector('[data-menu-demo]');
+      if (md) {
+        const input = md.querySelector('input');
+        const items = [...md.querySelectorAll('li')];
+        const empty = md.querySelector('[data-empty]');
+        input.addEventListener('input', () => {
+          const q = input.value.trim().toLowerCase();
+          let n = 0;
+          items.forEach((li) => { const on = !q || li.dataset.q.includes(q); li.hidden = !on; if (on) n++; });
+          empty.hidden = n !== 0;
+        });
+      }
+
+      // Open now, on Rotterdam time, for the example café.
+      const parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Amsterdam', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+      const get = (k) => parts.find((p) => p.type === k)?.value;
+      const order = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
+      const day = { Mon: 'mo', Tue: 'tu', Wed: 'we', Thu: 'th', Fri: 'fr', Sat: 'sa', Sun: 'su' }[get('weekday')];
+      const now = Number(get('hour')) * 60 + Number(get('minute'));
+      const m = (s) => { const [h, mi] = s.split(':').map(Number); return h * 60 + mi; };
+      const ui = data.ui;
+      let open = null; let next = null;
+      const prev = order[(order.indexOf(day) + 6) % 7];
+      for (const [o, c] of data.hours[prev]) if (m(c) <= m(o) && now < m(c)) open = c;
+      if (!open) for (const [o, c] of data.hours[day]) {
+        const end = m(c) <= m(o) ? m(c) + 1440 : m(c);
+        if (now >= m(o) && now < end) open = c; else if (now < m(o) && !next) next = { t: o };
+      }
+      if (!open && !next) { const d = order[(order.indexOf(day) + 1) % 7]; next = { d: ui.daysLong[order.indexOf(d)], t: data.hours[d][0][0] }; }
+      const badge = document.querySelector('[data-badge]');
+      badge.classList.toggle('is-open', !!open);
+      badge.querySelector('[data-badge-text]').textContent = open
+        ? `${ui.open} · ${ui.until.replace('{t}', open)}`
+        : `${ui.closed} · ${next.d ? ui.opensDay.replace('{d}', next.d).replace('{t}', next.t) : ui.opens.replace('{t}', next.t)}`;
+      document.querySelector(`[data-day="${day}"]`)?.classList.add('today');
+
+      // NL / EN toggle demo.
+      const sample = document.querySelector('[data-lang-sample]');
+      document.querySelectorAll('[data-lang-set]').forEach((b, _, all) => b.addEventListener('click', () => {
+        all.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        sample.classList.add('is-swapping');
+        setTimeout(() => {
+          sample.querySelectorAll('span').forEach((s) => { s.textContent = s.dataset[b.dataset.langSet]; });
+          sample.classList.remove('is-swapping');
+        }, reduce ? 0 : 180);
+      }));
+
+      // Speed bars fill once, when they come into view.
+      const speed = document.querySelector('[data-speed]');
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries, obs) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); obs.disconnect(); } }), { threshold: 0.4 }).observe(speed);
+      } else speed.classList.add('is-in');
+    </script>
+  </body>
+</html>

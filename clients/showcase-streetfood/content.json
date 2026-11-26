@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "slug": "showcase-streetfood",
+  "mode": "showcase",
+  "look": "street-food",
+  "business": {
+    "name": "Vlam",
+    "kind": "eethuis",
+    "schema_type": "FastFoodRestaurant",
+    "cuisine": [
+      "Streetfood"
+    ],
+    "price_range": "€",
+    "kicker": {
+      "nl": "Streetfood uit de wok",
+      "en": "Street food from the wok"
+    },
+    "tagline": {
+      "nl": "Uit de wok in vier minuten. Hier eten of meenemen.",
+      "en": "Out of the wok in four minutes. Eat in or take away."
+    },
+    "intro": {
+      "nl": "Een fictief eethuis, gemaakt om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional eatery, made to show what one of our sites looks like."
+    },
+    "facts": [
+      {
+        "value": "4 min",
+        "label": {
+          "nl": "van wok tot bakje",
+          "en": "from wok to box"
+        }
+      },
+      {
+        "value": "9",
+        "label": {
+          "nl": "vegetarische gerechten",
+          "en": "vegetarian dishes"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "phone": "+31100000000",
+    "phone_display": "010 000 00 00",
+    "email": "hallo@example.com",
+    "address": {
+      "street": "Voorbeeldplein 7",
+      "postal_code": "3000 AA",
+      "city": "Rotterdam",
+      "country": "NL"
+    },
+    "geo": {
+      "lat": 51.9244,
+      "lng": 4.4777
+    },
+    "maps_url": "https://www.openstreetmap.org/?mlat=51.9244&mlon=4.4777#map=17/51.9244/4.4777"
+  },
+  "hours": {
+    "timezone": "Europe/Amsterdam",
+    "regular": [
+      {
+        "days": [
+          "tu",
+          "we",
+          "th",
+          "su"
+        ],
+        "opens": "12:00",
+        "closes": "22:00"
+      },
+      {
+        "days": [
+          "fr",
+          "sa"
+        ],
+        "opens": "12:00",
+        "closes": "23:30"
+      }
+    ],
+    "note": {
+      "nl": "Maandag gesloten.",
+      "en": "Closed on Mondays."
+    }
+  },
+  "menu": {
+    "title": {
+      "nl": "Het menu",
+      "en": "The menu"
+    },
+    "intro": {
+      "nl": "Zoek op naam of nummer.",
+      "en": "Search by name or number."
+    },
+    "currency": "EUR",
+    "searchable": true,
+    "sections": [
+      {
+        "id": "wok",
+        "title": {
+          "nl": "Uit de wok",
+          "en": "From the wok"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Bami kip",
+              "en": "Bami with chicken"
+            },
+            "price": 12.5,
+            "meta": "#1",
+            "featured": true
+          },
+          {
+            "name": {
+              "nl": "Nasi rund",
+              "en": "Nasi with beef"
+            },
+            "price": 13.5,
+            "meta": "#2"
+          },
+          {
+            "name": {
+              "nl": "Pad thai garnaal",
+              "en": "Pad thai with prawns"
+            },
+            "price": 14.5,
+            "meta": "#3",
+            "tags": [
+              "spicy"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Tofu teriyaki",
+              "en": "Tofu teriyaki"
+            },
+            "price": 12.0,
+            "meta": "#4",
+            "tags": [
+              "vegetarian"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Kip zwarte peper",
+              "en": "Black pepper chicken"
+            },
+            "price": 13.0,
+            "meta": "#5",
+            "tags": [
+              "spicy"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "bowls",
+        "title": {
+          "nl": "Bowls",
+          "en": "Bowls"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Bowl krokante kip",
+              "en": "Crispy chicken bowl"
+            },
+            "price": 12.5,
+            "meta": "#6"
+          },
+          {
+            "name": {
+              "nl": "Bowl zalm",
+              "en": "Salmon bowl"
+            },
+            "price": 14.0,
+            "meta": "#7"
+          },
+          {
+            "name": {
+              "nl": "Bowl groente",
+              "en": "Vegetable bowl"
+            },
+            "price": 11.0,
+            "meta": "#8",
+            "tags": [
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sides",
+        "title": {
+          "nl": "Erbij",
+          "en": "Sides"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Loempia (2)",
+              "en": "Spring rolls (2)"
+            },
+            "price": 4.5,
+            "meta": "#9",
+            "tags": [
+              "vegetarian"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Gyoza (6)",
+              "en": "Gyoza (6)"
+            },
+            "price": 6.0,
+            "meta": "#10"
+          },
+          {
+            "name": {
+              "nl": "Edamame",
+              "en": "Edamame"
+            },
+            "price": 4.0,
+            "meta": "#11",
+            "tags": [
+              "vegan"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "drinks",
+        "title": {
+          "nl": "Drinken",
+          "en": "Drinks"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "IJsthee",
+              "en": "Iced tea"
+            },
+            "price": 3.5,
+            "meta": "#12"
+          },
+          {
+            "name": {
+              "nl": "Fris",
+              "en": "Soft drink"
+            },
+            "price": 3.0,
+            "meta": "#13"
+          },
+          {
+            "name": {
+              "nl": "Bier",
+              "en": "Beer"
+            },
+            "price": 4.0,
+            "meta": "#14"
+          }
+        ]
+      }
+    ],
+    "allergens_note": {
+      "nl": "Vraag ons naar allergenen.",
+      "en": "Ask us about allergens."
+    }
+  },
+  "booking": {
+    "provider": "phone",
+    "label": {
+      "nl": "Bel om te bestellen",
+      "en": "Call to order"
+    }
+  },
+  "ordering": {
+    "url": "https://www.example.com/bestellen",
+    "label": {
+      "nl": "Bestel online",
+      "en": "Order online"
+    }
+  },
+  "seo": {
+    "title": {
+      "nl": "Vlam · voorbeeld van Amuse Studio",
+      "en": "Vlam · Amuse Studio example"
+    },
+    "description": {
+      "nl": "Een fictief streetfood-eethuis in Rotterdam, gemaakt door Amuse Studio om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional street food eatery in Rotterdam, made by Amuse Studio to show what one of our sites looks like."
+    }
+  }
+}

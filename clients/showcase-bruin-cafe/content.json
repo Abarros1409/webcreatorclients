@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "slug": "showcase-bruin-cafe",
+  "mode": "showcase",
+  "look": "brown-cafe",
+  "business": {
+    "name": "Café De Ruggespraak",
+    "kind": "brown-cafe",
+    "schema_type": "BarOrPub",
+    "cuisine": [
+      "Bruin café"
+    ],
+    "price_range": "€€",
+    "kicker": {
+      "nl": "Bruin café aan de kade",
+      "en": "Brown café on the quay"
+    },
+    "tagline": {
+      "nl": "Bier van de tap, bitterballen uit de keuken en een tafel bij het raam.",
+      "en": "Beer on tap, bitterballen from the kitchen and a table by the window."
+    },
+    "intro": {
+      "nl": "Een fictief bruin café, gemaakt om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional brown café, made to show what one of our sites looks like."
+    },
+    "story": {
+      "title": {
+        "nl": "Hout, koper en vaste gasten",
+        "en": "Wood, brass and regulars"
+      },
+      "body": {
+        "nl": "In het echt staat hier het verhaal van de eigenaar, in zijn eigen woorden. Wie het café begon, waarom de tap altijd koud is en welke tafel van de vaste gasten is.\n\nWij schrijven het op na één gesprek, in het Nederlands en in het Engels.",
+        "en": "On a real site this is the owner’s story, in their own words: who started the café, why the beer is always cold and which table belongs to the regulars.\n\nWe write it after one conversation, in Dutch and in English."
+      }
+    },
+    "facts": [
+      {
+        "value": "14",
+        "label": {
+          "nl": "bieren van de tap",
+          "en": "beers on tap"
+        }
+      },
+      {
+        "value": "40",
+        "label": {
+          "nl": "plekken op het terras",
+          "en": "terrace seats"
+        }
+      }
+    ]
+  },
+  "contact": {
+    "phone": "+31100000000",
+    "phone_display": "010 000 00 00",
+    "email": "hallo@example.com",
+    "address": {
+      "street": "Voorbeeldkade 12",
+      "postal_code": "3000 AA",
+      "city": "Rotterdam",
+      "country": "NL"
+    },
+    "geo": {
+      "lat": 51.9171,
+      "lng": 4.4835
+    },
+    "maps_url": "https://www.openstreetmap.org/?mlat=51.9171&mlon=4.4835#map=17/51.9171/4.4835"
+  },
+  "hours": {
+    "timezone": "Europe/Amsterdam",
+    "regular": [
+      {
+        "days": [
+          "mo",
+          "tu",
+          "we",
+          "th"
+        ],
+        "opens": "14:00",
+        "closes": "01:00"
+      },
+      {
+        "days": [
+          "fr",
+          "sa"
+        ],
+        "opens": "12:00",
+        "closes": "02:00"
+      },
+      {
+        "days": [
+          "su"
+        ],
+        "opens": "12:00",
+        "closes": "00:00"
+      }
+    ],
+    "note": {
+      "nl": "Keuken open tot 22:00.",
+      "en": "Kitchen open until 22:00."
+    }
+  },
+  "menu": {
+    "title": {
+      "nl": "Eten & drinken",
+      "en": "Food & drinks"
+    },
+    "currency": "EUR",
+    "searchable": true,
+    "sections": [
+      {
+        "id": "borrel",
+        "title": {
+          "nl": "Borrel",
+          "en": "Bar bites"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Bitterballen (8)",
+              "en": "Bitterballen (8)"
+            },
+            "price": 8.5,
+            "description": {
+              "nl": "Met grove mosterd.",
+              "en": "With coarse mustard."
+            },
+            "featured": true
+          },
+          {
+            "name": {
+              "nl": "Ossenworst",
+              "en": "Ossenworst (raw beef sausage)"
+            },
+            "price": 7.5,
+            "description": {
+              "nl": "Met piccalilly.",
+              "en": "With piccalilli."
+            }
+          },
+          {
+            "name": {
+              "nl": "Oude kaas",
+              "en": "Aged cheese"
+            },
+            "price": 7.0,
+            "description": {
+              "nl": "Met mosterd en selderijzout.",
+              "en": "With mustard and celery salt."
+            },
+            "tags": [
+              "vegetarian"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Tosti ham-kaas",
+              "en": "Ham and cheese toastie"
+            },
+            "price": 5.5
+          }
+        ]
+      },
+      {
+        "id": "tap",
+        "title": {
+          "nl": "Van de tap",
+          "en": "On tap"
+        },
+        "note": {
+          "nl": "Elke maand een andere gasttap.",
+          "en": "A different guest tap every month."
+        },
+        "items": [
+          {
+            "name": "Huispils",
+            "meta": "NL · 5,0%",
+            "price_label": "0,25 3,80 · 0,5 7,00"
+          },
+          {
+            "name": "Witbier",
+            "meta": "NL · 5,2%",
+            "price": 4.9
+          },
+          {
+            "name": "Tripel",
+            "meta": "BE · 8,5%",
+            "price": 6.5,
+            "tags": [
+              "signature"
+            ]
+          },
+          {
+            "name": {
+              "nl": "Alcoholvrij",
+              "en": "Alcohol-free"
+            },
+            "meta": "NL · 0,0%",
+            "price": 4.5,
+            "tags": [
+              "alcohol-free"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "jenever",
+        "title": {
+          "nl": "Jenever",
+          "en": "Jenever (Dutch gin)"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Jonge jenever",
+              "en": "Young jenever"
+            },
+            "price": 3.5
+          },
+          {
+            "name": {
+              "nl": "Oude jenever",
+              "en": "Aged jenever"
+            },
+            "price": 4.0
+          },
+          {
+            "name": {
+              "nl": "Korenwijn",
+              "en": "Korenwijn (malt jenever)"
+            },
+            "price": 5.0
+          }
+        ]
+      }
+    ],
+    "allergens_note": {
+      "nl": "Vraag ons naar allergenen.",
+      "en": "Ask us about allergens."
+    }
+  },
+  "booking": {
+    "provider": "phone",
+    "label": {
+      "nl": "Bel voor een tafel",
+      "en": "Call for a table"
+    }
+  },
+  "events": {
+    "items": [
+      {
+        "title": {
+          "nl": "Pubquiz",
+          "en": "Pub quiz"
+        },
+        "when": {
+          "nl": "Elke dinsdag, 20:30",
+          "en": "Every Tuesday, 20:30"
+        },
+        "description": {
+          "nl": "Teams tot zes personen.",
+          "en": "Teams of up to six."
+        }
+      },
+      {
+        "title": {
+          "nl": "Jazz op zondag",
+          "en": "Sunday jazz"
+        },
+        "when": {
+          "nl": "Eerste zondag van de maand, 16:00",
+          "en": "First Sunday of the month, 16:00"
+        }
+      }
+    ]
+  },
+  "groups": {
+    "enabled": true,
+    "title": {
+      "nl": "Borrel met een groep",
+      "en": "Drinks with a group"
+    },
+    "body": {
+      "nl": "Vanaf acht personen houden we een hoek voor jullie vrij.",
+      "en": "From eight people we keep a corner free for you."
+    },
+    "min_size": 8,
+    "max_size": 60,
+    "form": {
+      "method": "mailto",
+      "to": "hallo@example.com"
+    }
+  },
+  "seo": {
+    "title": {
+      "nl": "Café De Ruggespraak · voorbeeld van Amuse Studio",
+      "en": "Café De Ruggespraak · Amuse Studio example"
+    },
+    "description": {
+      "nl": "Een fictief bruin café in Rotterdam, gemaakt door Amuse Studio om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional brown café in Rotterdam, made by Amuse Studio to show what one of our sites looks like."
+    }
+  }
+}

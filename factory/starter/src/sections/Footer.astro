@@ -8,6 +8,8 @@ const a = c.contact.address;
 const socials = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['tiktok', 'TikTok']].filter(([k]) => c.links?.[k]);
 const other = lang === 'nl' ? 'en' : 'nl';
 const year = new Date().getFullYear();
+const m = c.media ?? {};
+const credits = [...new Set([m.hero, m.story, ...(m.gallery ?? [])].filter((i) => i?.credit).map((i) => i.credit))];
 ---
 <footer class="site-footer">
   <div class="wrap footer-grid">
@@ -33,6 +35,7 @@ const year = new Date().getFullYear();
   <div class="wrap footer-small">
     <p>© {year} {c.business.name}</p>
     <p>{ui.privacy}</p>
+    {credits.length > 0 && <p>{ui.credits}: {credits.join('; ')}</p>}
     <p>{studio.url ? <a href={studio.url} target="_blank" rel="noopener">{fill(ui.madeBy, { studio: studio.name })}</a> : fill(ui.madeBy, { studio: studio.name })}</p>
   </div>
 </footer>

@@ -128,6 +128,10 @@ Blocks until the owner has confirmed hours and menu, given permission for (or re
 
 Changes arrive on WhatsApp. In Claude Code: `/factory change <slug> "<request>"` edits the content, re-runs QA, deploys and logs the time in `changes.md` (about 1 hour/month included; more is quoted).
 
+## Showcase mode
+
+`"mode": "showcase"` is for fictional example businesses used on the studio's own site (`clients/showcase-*`, see `studio/`). The page says it's a fictional place, stays noindex, and lists photo credits in the footer.
+
 ## Rules built into the system
 
 - **Privacy.** This repository is public: `clients/` is git-ignored except the fictional `example-cafe` fixture. Demos are private by URL token and noindex. Client work needs a private home before it's shared between machines (see open decisions).

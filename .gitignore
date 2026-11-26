@@ -12,3 +12,17 @@ clients/*
 clients/example-cafe/dist*/
 clients/example-cafe/qa/
 clients/example-cafe/status.json
+# Fictional showcase businesses for the studio site (safe to commit)
+!clients/showcase-*/
+clients/showcase-*/dist*/
+clients/showcase-*/qa/
+clients/showcase-*/pitch/
+clients/showcase-*/status.json
+
+# Studio site
+studio/node_modules/
+studio/dist/
+studio/.astro/
+studio/public/voorbeeld/
+studio/.shots/
+studio/preview/

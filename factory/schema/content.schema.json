@@ -26,9 +26,10 @@
     "mode": {
       "enum": [
         "demo",
-        "live"
+        "live",
+        "showcase"
       ],
-      "description": "demo = private concept (noindex, ribbon). live = the client's real site."
+      "description": "demo = private concept for a real business (noindex, ribbon). live = the client's real site. showcase = fictional example business for the studio's own site (noindex, 'example' ribbon)."
     },
     "look": {
       "enum": [
