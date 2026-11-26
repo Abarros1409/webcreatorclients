@@ -1,0 +1,107 @@
+---
+import '../styles/base.css';
+import '../client/look.css';
+import '../client/theme.css';
+import { getImage } from 'astro:assets';
+import content from '../client/content.json';
+import studio from '../client/studio.json';
+import lookConfig from '../client/look.json';
+import { t, UI } from '../lib/i18n.js';
+import { photo } from '../lib/media.js';
+import { primaryAction } from '../lib/actions.js';
+import { businessJsonLd } from '../lib/schema.js';
+import { clientHours } from '../lib/hours.js';
+import ConceptRibbon from '../components/ConceptRibbon.astro';
+import Header from '../components/Header.astro';
+import StickyBar from '../components/StickyBar.astro';
+import Hero from '../sections/Hero.astro';
+import Story from '../sections/Story.astro';
+import Menu from '../sections/Menu.astro';
+import Hours from '../sections/Hours.astro';
+import Booking from '../sections/Booking.astro';
+import Gallery from '../sections/Gallery.astro';
+import Reviews from '../sections/Reviews.astro';
+import Events from '../sections/Events.astro';
+import Groups from '../sections/Groups.astro';
+import Footer from '../sections/Footer.astro';
+
+const { lang } = Astro.props;
+const c = content;
+const ui = UI[lang];
+const demo = c.mode !== 'live';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const paths = { nl: base, en: `${base}en/` };
+const action = primaryAction(c, ui, lang);
+
+const available = {
+  hero: true,
+  story: !!c.business.story,
+  menu: (c.menu?.sections?.length ?? 0) > 0,
+  hours: true,
+  booking: !!c.booking && c.booking.provider !== 'none' && !!action,
+  gallery: (c.media?.gallery?.length ?? 0) >= 3,
+  reviews: !!(c.reviews?.rating || c.reviews?.highlights?.length),
+  events: (c.events?.items?.length ?? 0) > 0,
+  groups: !!c.groups?.enabled,
+};
+const order = (c.sections ?? lookConfig.sections).filter((s) => available[s]);
+const heroVariant = c.hero_variant ?? lookConfig.hero;
+
+const COMPONENTS = { hero: Hero, story: Story, menu: Menu, hours: Hours, booking: Booking, gallery: Gallery, reviews: Reviews, events: Events, groups: Groups };
+
+const heroPhoto = photo(c.media?.hero?.file);
+const og = heroPhoto ? await getImage({ src: heroPhoto, width: 1200, height: 630, fit: 'cover', format: 'jpg' }) : null;
+const siteUrl = c.site?.url?.replace(/\/$/, '');
+const abs = (p) => (siteUrl ? new URL(p, siteUrl + '/').href : null);
+const canonical = !demo && siteUrl ? (lang === 'nl' ? `${siteUrl}/` : `${siteUrl}/en/`) : null;
+const ogImage = og ? (siteUrl ? abs(og.src.replace(/^\//, '')) : og.src) : null;
+const jsonLd = businessJsonLd(c, lang, { url: canonical ?? undefined, image: ogImage ?? undefined });
+const title = t(c.seo.title, lang);
+const description = t(c.seo.description, lang);
+const analytics = !demo ? c.site?.analytics : null;
+const initial = (c.business.short_name ?? c.business.name).trim().charAt(0).toUpperCase();
+---
+<!doctype html>
+<html lang={lang} data-look={c.look} data-mode={demo ? 'demo' : 'live'} data-hero={heroVariant}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {demo && <meta name="robots" content="noindex, nofollow, noarchive" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang="nl" href={siteUrl ? `${siteUrl}/` : paths.nl} />
+    <link rel="alternate" hreflang="en" href={siteUrl ? `${siteUrl}/en/` : paths.en} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl ? `${siteUrl}/` : paths.nl} />
+    <meta name="theme-color" content={lookConfig.theme_color} />
+    <link rel="icon" href={`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${c.brand?.accent ?? lookConfig.icon_bg}"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" text-anchor="middle" fill="${c.brand?.accent_ink ?? lookConfig.icon_ink}">${initial}</text></svg>`)}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_GB'} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/json" id="hours-data" set:html={JSON.stringify({ ...clientHours(c.hours), lang, ui: { openNow: ui.openNow, closedNow: ui.closedNow, opensAt: ui.opensAt, opensDay: ui.opensDay, closesAt: ui.closesAt, days: ui.days } })} />
+    {analytics?.provider === 'plausible' && <script defer data-domain={analytics.id} src={analytics.src ?? 'https://plausible.io/js/script.js'}></script>}
+    {analytics?.provider === 'umami' && <script defer data-website-id={analytics.id} src={analytics.src}></script>}
+    {analytics?.provider === 'goatcounter' && <script data-goatcounter={analytics.src} async src="https://gc.zgo.at/count.js"></script>}
+    {analytics?.provider === 'cloudflare' && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: analytics.id })}></script>}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{ui.skip}</a>
+    {demo && <ConceptRibbon c={c} ui={ui} studio={studio} />}
+    <Header c={c} ui={ui} lang={lang} sections={order} action={action} paths={paths} />
+    <main id="main">
+      {order.map((key) => {
+        const Section = COMPONENTS[key];
+        return <Section c={c} ui={ui} lang={lang} action={action} demo={demo} studio={studio} variant={heroVariant} />;
+      })}
+    </main>
+    <Footer c={c} ui={ui} lang={lang} studio={studio} paths={paths} />
+    <StickyBar c={c} ui={ui} action={action} />
+    <script>
+      import '../scripts/site.js';
+    </script>
+  </body>
+</html>

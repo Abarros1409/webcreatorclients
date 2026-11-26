@@ -1,0 +1,24 @@
+---
+import Icon from '../components/Icon.astro';
+import { t, has } from '../lib/i18n.js';
+import { telHref, waHref } from '../lib/actions.js';
+const { c, ui, lang, action } = Astro.props;
+const bk = c.booking;
+const tel = telHref(c);
+const wa = c.contact.whatsapp ? waHref(c.contact.whatsapp) : null;
+const gift = c.links?.gift_cards;
+---
+<section class="section booking" id="booking" data-section="booking" aria-labelledby="booking-title">
+  <div class="wrap booking-inner reveal">
+    <div>
+      <h2 id="booking-title" class="section-title">{bk.label ? t(bk.label, lang) : ui.bookTable}</h2>
+      {has(bk.note) && <p class="section-intro">{t(bk.note, lang)}</p>}
+    </div>
+    <div class="booking-actions">
+      {action && <a class="btn btn-primary btn-lg" href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener' : undefined}><Icon name={action.icon} />{action.label}</a>}
+      {tel && action?.kind !== 'call' && <a class="btn btn-ghost" href={tel}><Icon name="phone" />{ui.callUs}</a>}
+      {wa && bk.provider !== 'whatsapp' && <a class="btn btn-ghost" href={wa} target="_blank" rel="noopener"><Icon name="whatsapp" />{ui.whatsapp}</a>}
+      {gift && <a class="btn btn-ghost" href={gift} target="_blank" rel="noopener"><Icon name="gift" />{ui.giftCards}</a>}
+    </div>
+  </div>
+</section>

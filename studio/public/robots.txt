@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /voorbeeld/
+
+Sitemap: https://amusestudio.nl/sitemap.xml

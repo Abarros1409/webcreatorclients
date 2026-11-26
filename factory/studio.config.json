@@ -1,0 +1,26 @@
+{
+  "_note": "Studio identity used on demos, pitch cards and handover sheets. Name and contact are placeholders until Andrés & Adam decide (see the strategy plan, 'Open decisions').",
+  "name": "Amuse Studio",
+  "url": null,
+  "demo_base_url": "https://demo.amusestudio.nl",
+  "contact": {
+    "people": [
+      { "name": "Adam", "role": "Clients", "whatsapp": null },
+      { "name": "Andrés", "role": "Build", "whatsapp": null }
+    ],
+    "email": null,
+    "instagram": null
+  },
+  "offer": {
+    "setup_eur": 450,
+    "monthly_eur": 59,
+    "minimum_months": 12,
+    "pay_once_eur": 1450,
+    "founding_clients": 3
+  },
+  "hosting": {
+    "provider": "vercel",
+    "demo_project": "amuse-demos",
+    "note": "Vercel Hobby is non-commercial only; budget Vercel Pro or pick a host whose free plan allows commercial use before the first paid client."
+  }
+}

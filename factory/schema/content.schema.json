@@ -1,0 +1,918 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amuse.studio/schema/content.schema.json",
+  "title": "Client site content",
+  "description": "Everything one hospitality site needs. One file per client: clients/<slug>/content.json. Localized fields carry both Dutch (nl) and English (en).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "slug",
+    "mode",
+    "look",
+    "business",
+    "contact",
+    "hours",
+    "seo"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "mode": {
+      "enum": [
+        "demo",
+        "live",
+        "showcase"
+      ],
+      "description": "demo = private concept for a real business (noindex, ribbon). live = the client's real site. showcase = fictional example business for the studio's own site (noindex, 'example' ribbon)."
+    },
+    "look": {
+      "enum": [
+        "brown-cafe",
+        "coffee-brunch",
+        "dining",
+        "street-food"
+      ]
+    },
+    "hero_variant": {
+      "enum": [
+        "photo",
+        "split",
+        "type"
+      ],
+      "description": "Overrides the look's default hero layout."
+    },
+    "sections": {
+      "type": "array",
+      "description": "Section order. Omit to use the look's default order. Sections without content are skipped automatically.",
+      "items": {
+        "enum": [
+          "hero",
+          "story",
+          "menu",
+          "hours",
+          "booking",
+          "gallery",
+          "reviews",
+          "events",
+          "groups"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "business": {
+      "type": "object",
+      "required": [
+        "name",
+        "kind",
+        "schema_type",
+        "tagline"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "short_name": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "brown-cafe",
+            "eetcafe",
+            "coffee-brunch",
+            "bakery",
+            "restaurant",
+            "fine-dining",
+            "beer-bar",
+            "wine-bar",
+            "cocktail-bar",
+            "sports-bar",
+            "takeaway",
+            "eethuis",
+            "other"
+          ]
+        },
+        "schema_type": {
+          "enum": [
+            "Restaurant",
+            "CafeOrCoffeeShop",
+            "BarOrPub",
+            "FastFoodRestaurant",
+            "Bakery",
+            "Winery",
+            "FoodEstablishment"
+          ]
+        },
+        "cuisine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price_range": {
+          "enum": [
+            "€",
+            "€€",
+            "€€€",
+            "€€€€"
+          ]
+        },
+        "kicker": {
+          "$ref": "#/$defs/L",
+          "description": "Small line above the name in the hero. Defaults to cuisine · city."
+        },
+        "founded": {
+          "type": "integer",
+          "minimum": 1600,
+          "maximum": 2100
+        },
+        "tagline": {
+          "$ref": "#/$defs/L",
+          "description": "One line under the name in the hero."
+        },
+        "intro": {
+          "$ref": "#/$defs/L",
+          "description": "Two or three sentences: what it is, what makes it theirs."
+        },
+        "story": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "body"
+          ],
+          "properties": {
+            "title": {
+              "$ref": "#/$defs/L"
+            },
+            "body": {
+              "$ref": "#/$defs/L",
+              "description": "Paragraphs separated by a blank line."
+            }
+          }
+        },
+        "facts": {
+          "type": "array",
+          "maxItems": 4,
+          "description": "Short verifiable facts shown as a strip (e.g. 'Since 1987', '200+ beers'). Never invented.",
+          "items": {
+            "type": "object",
+            "required": [
+              "value",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "label": {
+                "$ref": "#/$defs/L"
+              }
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "required": [
+        "address",
+        "maps_url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "phone": {
+          "$ref": "#/$defs/E164"
+        },
+        "phone_display": {
+          "type": "string"
+        },
+        "whatsapp": {
+          "$ref": "#/$defs/E164"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "address": {
+          "type": "object",
+          "required": [
+            "street",
+            "postal_code",
+            "city"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "street": {
+              "type": "string"
+            },
+            "postal_code": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "default": "NL"
+            }
+          }
+        },
+        "geo": {
+          "type": "object",
+          "required": [
+            "lat",
+            "lng"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lng": {
+              "type": "number"
+            }
+          }
+        },
+        "maps_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "directions": {
+          "$ref": "#/$defs/L",
+          "description": "Optional: tram stop, parking, terrace side."
+        }
+      }
+    },
+    "hours": {
+      "type": "object",
+      "required": [
+        "regular"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "timezone": {
+          "const": "Europe/Amsterdam"
+        },
+        "regular": {
+          "type": "array",
+          "description": "One entry per opening block. Days without any entry are shown as closed. closes may be after midnight (e.g. 01:00).",
+          "items": {
+            "type": "object",
+            "required": [
+              "days",
+              "opens",
+              "closes"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "days": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "mo",
+                    "tu",
+                    "we",
+                    "th",
+                    "fr",
+                    "sa",
+                    "su"
+                  ]
+                }
+              },
+              "opens": {
+                "$ref": "#/$defs/HHMM"
+              },
+              "closes": {
+                "$ref": "#/$defs/HHMM"
+              },
+              "label": {
+                "$ref": "#/$defs/L",
+                "description": "Optional: 'Kitchen', 'Brunch'."
+              }
+            }
+          }
+        },
+        "special": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "label"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "label": {
+                "$ref": "#/$defs/L"
+              },
+              "closed": {
+                "type": "boolean"
+              },
+              "opens": {
+                "$ref": "#/$defs/HHMM"
+              },
+              "closes": {
+                "$ref": "#/$defs/HHMM"
+              }
+            }
+          }
+        },
+        "note": {
+          "$ref": "#/$defs/L"
+        },
+        "unverified": {
+          "type": "boolean",
+          "description": "true while hours come from a third-party source and the owner has not confirmed them."
+        }
+      }
+    },
+    "menu": {
+      "type": "object",
+      "required": [
+        "sections"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/L"
+        },
+        "intro": {
+          "$ref": "#/$defs/L"
+        },
+        "currency": {
+          "const": "EUR"
+        },
+        "searchable": {
+          "type": "boolean",
+          "description": "Adds search + filter chips. Use for long lists (beer, wine)."
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "items"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "title": {
+                "$ref": "#/$defs/L"
+              },
+              "note": {
+                "$ref": "#/$defs/L"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "$ref": "#/$defs/LS"
+                    },
+                    "description": {
+                      "$ref": "#/$defs/L"
+                    },
+                    "price": {
+                      "type": [
+                        "number",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "price_label": {
+                      "type": "string",
+                      "description": "Free-form price when there are several (e.g. '0,25 4,50 · 0,5 8,00')."
+                    },
+                    "meta": {
+                      "type": "string",
+                      "description": "Small line: origin, ABV, grape."
+                    },
+                    "tags": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "items": {
+                        "enum": [
+                          "vegan",
+                          "vegetarian",
+                          "gluten-free",
+                          "spicy",
+                          "new",
+                          "signature",
+                          "local",
+                          "seasonal",
+                          "alcohol-free"
+                        ]
+                      }
+                    },
+                    "featured": {
+                      "type": "boolean"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "description": "File name in photos/."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "allergens_note": {
+          "$ref": "#/$defs/L"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "html",
+                "pdf",
+                "image",
+                "manual",
+                "client"
+              ]
+            },
+            "url": {
+              "type": "string"
+            },
+            "checked_on": {
+              "type": "string"
+            }
+          }
+        },
+        "unverified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "booking": {
+      "type": "object",
+      "required": [
+        "provider"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "enum": [
+            "zenchef",
+            "formitable",
+            "resengo",
+            "opentable",
+            "thefork",
+            "tablebooker",
+            "other",
+            "whatsapp",
+            "phone",
+            "none"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "$ref": "#/$defs/L"
+        },
+        "note": {
+          "$ref": "#/$defs/L"
+        }
+      }
+    },
+    "ordering": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/L"
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instagram": {
+          "type": "string",
+          "format": "uri"
+        },
+        "facebook": {
+          "type": "string",
+          "format": "uri"
+        },
+        "tiktok": {
+          "type": "string",
+          "format": "uri"
+        },
+        "untappd": {
+          "type": "string",
+          "format": "uri"
+        },
+        "google_reviews": {
+          "type": "string",
+          "format": "uri"
+        },
+        "gift_cards": {
+          "type": "string",
+          "format": "uri"
+        },
+        "current_website": {
+          "type": "string"
+        }
+      }
+    },
+    "reviews": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rating": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "checked_on": {
+          "type": "string"
+        },
+        "highlights": {
+          "type": "array",
+          "maxItems": 6,
+          "description": "Verbatim quotes only, copied from a public review with its author and source. Never paraphrased or invented.",
+          "items": {
+            "type": "object",
+            "required": [
+              "quote",
+              "author",
+              "source",
+              "verbatim"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string"
+              },
+              "lang": {
+                "enum": [
+                  "nl",
+                  "en",
+                  "de",
+                  "fr",
+                  "other"
+                ]
+              },
+              "author": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "verbatim": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/L"
+        },
+        "intro": {
+          "$ref": "#/$defs/L"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "when"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "$ref": "#/$defs/L"
+              },
+              "when": {
+                "$ref": "#/$defs/L"
+              },
+              "description": {
+                "$ref": "#/$defs/L"
+              }
+            }
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "object",
+      "required": [
+        "enabled"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "title": {
+          "$ref": "#/$defs/L"
+        },
+        "body": {
+          "$ref": "#/$defs/L"
+        },
+        "min_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "form": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "endpoint",
+                "mailto",
+                "whatsapp"
+              ],
+              "description": "endpoint = POST to a form service (needs a DPA when live). mailto/whatsapp = no data stored by us."
+            },
+            "endpoint": {
+              "type": "string",
+              "format": "uri"
+            },
+            "to": {
+              "type": "string",
+              "description": "Email address or E.164 number for mailto/whatsapp."
+            }
+          }
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logo": {
+          "type": "object",
+          "required": [
+            "file"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "invert_on_dark": {
+              "type": "boolean"
+            },
+            "origin": {
+              "$ref": "#/$defs/Origin"
+            }
+          }
+        },
+        "hero": {
+          "$ref": "#/$defs/Img"
+        },
+        "story": {
+          "$ref": "#/$defs/Img"
+        },
+        "gallery": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/Img"
+          }
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "accent": {
+          "$ref": "#/$defs/Hex",
+          "description": "Their own brand colour, if they have one. Replaces the look's accent."
+        },
+        "accent_ink": {
+          "$ref": "#/$defs/Hex",
+          "description": "Text colour on the accent. QA checks contrast."
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "required": [
+        "title",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/L"
+        },
+        "description": {
+          "$ref": "#/$defs/L"
+        }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Live canonical URL (live mode)."
+        },
+        "analytics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider"
+          ],
+          "properties": {
+            "provider": {
+              "enum": [
+                "none",
+                "plausible",
+                "umami",
+                "goatcounter",
+                "cloudflare"
+              ]
+            },
+            "id": {
+              "type": "string"
+            },
+            "src": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "demo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "token": {
+          "type": "string",
+          "pattern": "^[a-z0-9]{4,12}$",
+          "description": "Random suffix so the private demo URL can't be guessed."
+        },
+        "made_on": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "L": {
+      "type": "object",
+      "required": [
+        "nl",
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "nl": {
+          "type": "string",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "LS": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "$ref": "#/$defs/L"
+        }
+      ],
+      "description": "A proper name (string) or a translatable name."
+    },
+    "E164": {
+      "type": "string",
+      "pattern": "^\\+[1-9][0-9]{7,14}$"
+    },
+    "HHMM": {
+      "type": "string",
+      "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
+    },
+    "Hex": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "Origin": {
+      "enum": [
+        "client",
+        "their-website",
+        "their-instagram",
+        "google-maps",
+        "stand-in",
+        "studio"
+      ]
+    },
+    "Img": {
+      "type": "object",
+      "required": [
+        "file",
+        "alt",
+        "origin"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File name in clients/<slug>/photos/."
+        },
+        "alt": {
+          "$ref": "#/$defs/L"
+        },
+        "origin": {
+          "$ref": "#/$defs/Origin"
+        },
+        "credit": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "focus": {
+          "type": "string",
+          "description": "CSS object-position, e.g. '50% 30%'."
+        }
+      }
+    }
+  }
+}

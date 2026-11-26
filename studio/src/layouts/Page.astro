@@ -1,0 +1,416 @@
+---
+import '../styles/global.css';
+import '../styles/motion.css';
+import Logo from '../components/Logo.astro';
+import QRCode from 'qrcode';
+import frauncesFont from '@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2?url';
+import sansFont from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
+import { T, FX, LOOKS, CONTACT } from '../i18n.js';
+
+const { lang } = Astro.props;
+const t = T[lang];
+const fx = FX[lang];
+const site = 'https://amusestudio.nl';
+const path = (l) => (l === 'nl' ? '/' : '/en/');
+const demo = (look) => `/voorbeeld/${look}/${lang === 'en' ? 'en/' : ''}`;
+const poster = (look) => `/voorbeeld/posters/${look}-${lang}.webp`;
+const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent(t.contact.subject)}`;
+const wa = CONTACT.whatsapp ? `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(t.contact.subject)}` : null;
+const fill = (s, v) => s.replace(/\{(\w+)\}/g, (_, k) => v[k] ?? '');
+const first = LOOKS[0];
+const qr = await QRCode.toString(`${site}${lang === 'en' ? '/en/' : '/'}`, { type: 'svg', margin: 0, color: { dark: '#1b1813', light: '#0000' } });
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Amuse Studio',
+  url: site,
+  email: CONTACT.email,
+  description: t.meta.description,
+  areaServed: { '@type': 'City', name: 'Rotterdam' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Rotterdam', addressCountry: 'NL' },
+  knowsLanguage: ['nl', 'en'],
+};
+const hoursDemo = { mo: [['14:00', '01:00']], tu: [['14:00', '01:00']], we: [['14:00', '01:00']], th: [['14:00', '01:00']], fr: [['12:00', '02:00']], sa: [['12:00', '02:00']], su: [['12:00', '00:00']] };
+const keys = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
+const favicon = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#173a2b"/><ellipse cx="15.5" cy="15" rx="8" ry="6" transform="rotate(-38 15.5 15)" fill="#e2462c"/><path d="M21 21c3 2.8 6 6 9.5 10" fill="none" stroke="#efe9dc" stroke-width="3" stroke-linecap="round"/></svg>')}`;
+const spoon = '<svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="14.5" cy="14" rx="9.5" ry="7" transform="rotate(-38 14.5 14)" fill="var(--tomato)"/><path d="M21 20.5c3.6 3.4 7.4 7.4 11.6 12.4" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>';
+// Line icons for the four courses (drawn in on scroll).
+const courseIcons = [
+  '<path d="M9 30c7-1 14-6 18-13 2-4 6-6 9-4 2 2 1 6-3 8-7 4-14 7-24 9z"/><path d="M6 34l4-4"/>',
+  '<rect x="13" y="5" width="18" height="34" rx="4"/><path d="M19 9h6M20 34h4"/><path d="M17 18h10M17 23h7"/>',
+  '<path d="M6 30h32"/><path d="M9 30a13 13 0 0 1 26 0"/><path d="M22 14v-3M19 11h6"/><path d="M4 34h36"/>',
+  '<path d="M9 17h20v8a10 10 0 0 1-20 0z"/><path d="M29 19h3a4 4 0 0 1 0 8h-3"/><path d="M14 6c-2 3 2 4 0 7M20 6c-2 3 2 4 0 7"/>',
+];
+const marquee = [...fx.marquee, ...fx.marquee];
+const heroWords = t.hero.title.split(' ');
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <link rel="canonical" href={`${site}${path(lang)}`} />
+    <link rel="alternate" hreflang="nl" href={`${site}/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    <meta name="theme-color" content="#173a2b" />
+    <link rel="icon" href={favicon} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:url" content={`${site}${path(lang)}`} />
+    <meta property="og:image" content={`${site}/og.png`} />
+    <meta property="og:locale" content={lang === 'nl' ? 'nl_NL' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <link rel="preload" as="font" type="font/woff2" href={frauncesFont} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={sansFont} crossorigin />
+    <link rel="preload" as="image" href={poster(LOOKS[0].id)} fetchpriority="high" />
+    <script is:inline>document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion');</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+
+    <header class="top" data-top>
+      <div class="progress" aria-hidden="true"><i data-progress></i></div>
+      <div class="wrap top-inner">
+        <a href={path(lang)} aria-label="Amuse Studio"><Logo /></a>
+        <nav class="nav" aria-label={lang === 'nl' ? 'Hoofdmenu' : 'Main'}>
+          <ul>
+            <li><a href="#werkwijze">{t.nav.how}</a></li>
+            <li><a href="#wat-je-krijgt">{t.nav.what}</a></li>
+            <li><a href="#prijzen">{t.nav.price}</a></li>
+            <li><a href="#vragen">{t.nav.faq}</a></li>
+          </ul>
+        </nav>
+        <div class="top-actions">
+          <a class="lang" href={path(t.other)} hreflang={t.other} lang={t.other}><span class="full">{t.otherLabel}</span><span class="short">{t.otherShort}</span></a>
+          <a class="btn btn-tomato btn-sm magnetic" href="#contact">{t.cta}</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <h1 id="hero-title">{heroWords.map((w, i) => <><span class="w"><span style={`--d:${i}`}>{w}</span></span>{i < heroWords.length - 1 ? ' ' : ''}</>)}</h1>
+            <p class="lead" data-hero-fade>{t.hero.lead}</p>
+            <div class="hero-actions" data-hero-fade>
+              <a class="btn btn-tomato magnetic" href="#contact">{t.cta}</a>
+              <a class="link" href="#werkwijze">{t.hero.secondary}</a>
+            </div>
+          </div>
+          <div class="stage" data-stage>
+            <div class="chips" aria-hidden="true">
+              <span class="chip chip-open" data-chip style="--cd:900ms"><i class="dot"></i>{fx.chips.open}</span>
+              <span class="chip chip-lang" data-chip style="--cd:1050ms">{fx.chips.lang}</span>
+              <span class="chip chip-speed" data-chip style="--cd:1200ms"><b>98</b><em>/100</em>{fx.chips.speed}</span>
+              <span class="chip chip-book" data-chip style="--cd:1350ms"><span set:html={spoon} />{fx.chips.book}</span>
+            </div>
+            <div class="phone-in"><div class="phone-float"><div class="phone" data-phone>
+              <div class="screen" data-screen data-src={demo(first.id)} data-title={fill(t.hero.frameTitle, { name: first.name })} data-title-template={t.hero.frameTitle}>
+                <img class="poster" src={poster(first.id)} width="316" height="684" alt={fill(t.hero.frameTitle, { name: first.name })} data-poster fetchpriority="high" />
+                <img class="poster poster-next" alt="" aria-hidden="true" data-poster-next />
+                <button type="button" class="try" data-try><span>{t.hero.try}</span></button>
+              </div>
+            </div></div></div>
+            <div class="switch" role="group" aria-label={t.hero.phoneLabel}>
+              {LOOKS.map((l, i) => (
+                <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-look={l.id} data-src={demo(l.id)} data-poster-src={poster(l.id)} data-name={l.name}>{t.hero.looks[l.id]}<i class="prog" aria-hidden="true"></i></button>
+              ))}
+            </div>
+            <p class="stage-note">{t.hero.note}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" data-marquee>
+          {marquee.map((w) => <span class="mq-item"><span class="mq-word">{w}</span><span class="mq-spoon" set:html={spoon} /></span>)}
+        </div>
+      </div>
+
+      <!-- HOW -->
+      <section class="band how" id="werkwijze" aria-labelledby="how-title">
+        <div class="wrap">
+          <div class="how-head">
+            <header class="band-head">
+              <h2 id="how-title" data-split>{t.how.title}</h2>
+              <p data-rise>{t.how.intro}</p>
+            </header>
+            <aside class="define" data-define>
+              <p class="define-word" data-define-word>{fx.define.word}</p>
+              <p class="define-meta"><span>{fx.define.sound}</span><em>{fx.define.kind}</em></p>
+              <p class="define-text">{fx.define.text}</p>
+              <p class="define-ours"><span set:html={spoon} />{fx.define.ours}</p>
+            </aside>
+          </div>
+          <div class="courses-wrap" data-courses>
+            <div class="course-line" aria-hidden="true"><i data-course-line></i></div>
+            <ol class="courses">
+              {t.how.steps.map((s, i) => (
+                <li class="course" data-course>
+                  <svg class="course-icon" viewBox="0 0 44 44" aria-hidden="true" set:html={courseIcons[i]} />
+                  <p class="course-name">{s.course}</p>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT YOU GET -->
+      <section class="band what" id="wat-je-krijgt" aria-labelledby="what-title">
+        <div class="wrap">
+          <div class="what-head">
+            <header class="band-head">
+              <h2 id="what-title" data-split>{t.what.title}</h2>
+              <p data-rise>{t.what.intro}</p>
+            </header>
+            <ul class="stats" data-stats>
+              {fx.stats.map((s) => (
+                <li>
+                  <strong data-count={s.value} data-from={s.from} data-decimals={s.decimals} data-lang={lang}>{lang === 'nl' ? String(s.value).replace('.', ',') : s.value}{s.suffix && <span>{s.suffix}</span>}</strong>
+                  <span class="stat-label">{s.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="feature">
+            <div class="feature-copy">
+              <h3 data-rise>{t.what.menu.title}</h3>
+              <p data-rise>{t.what.menu.text}</p>
+              <div class="pdf-morph" aria-hidden="true" data-pdf>
+                <div class="pdf-doc"><span class="pdf-corner"></span><span class="pdf-name">{fx.pdf.file}</span><span class="pdf-lines"><i></i><i></i><i></i><i></i></span></div>
+                <span class="pdf-arrow">{fx.pdf.becomes}</span>
+                <ul class="pdf-text">{fx.pdf.lines.map((l) => <li>{l}</li>)}</ul>
+              </div>
+            </div>
+            <div class="menu-demo" data-menu-demo data-typing={JSON.stringify(fx.typing)}>
+              <label>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.4-4.4" /></svg>
+                <span class="visually-hidden">{t.what.menu.search}</span>
+                <input type="search" placeholder={t.what.menu.search} autocomplete="off" />
+                <span class="caret" aria-hidden="true"></span>
+              </label>
+              <ul>
+                {t.what.menu.items.map((i) => (
+                  <li data-q={`${i.name} ${i.meta}`.toLowerCase()}>
+                    <span class="n">{i.name}</span>
+                    {i.meta && <span class="m">{i.meta}</span>}
+                    <span class="dots" aria-hidden="true"></span>
+                    <span class="p">{i.price}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="empty" hidden data-empty>{t.what.menu.empty}</p>
+            </div>
+          </div>
+
+          <div class="duo">
+            <div class="hours-card" data-tilt>
+              <h3>{t.what.hours.title}</h3>
+              <p>{t.what.hours.text}</p>
+              <div class="hours-top">
+                <p class="badge" data-badge><span class="dot" aria-hidden="true"></span><span data-badge-text>{t.what.hours.place}</span></p>
+                <p class="clock"><span>{fx.clock}</span><strong data-clock>--:--:--</strong></p>
+              </div>
+              <ul class="week" data-week>
+                {keys.map((k, i) => <li data-day={k}><span>{t.what.hours.daysLong[i]}</span><span>{hoursDemo[k].map(([o, c]) => `${o}–${c}`).join(', ')}</span></li>)}
+              </ul>
+              <p class="place">{t.what.hours.place}</p>
+            </div>
+            <div class="lang-card" data-tilt>
+              <h3>{t.what.lang.title}</h3>
+              <p>{t.what.lang.text}</p>
+              <div class="toggle" role="group" aria-label={t.what.lang.title}>
+                <button type="button" aria-pressed="true" data-lang-set="nl">NL</button>
+                <button type="button" aria-pressed="false" data-lang-set="en">EN</button>
+                <i class="toggle-pill" aria-hidden="true"></i>
+              </div>
+              <div class="lang-sample" data-lang-sample aria-live="polite">
+                {t.what.lang.sample.map((s, i) => <span class={`s${i}`} data-nl={s.nl} data-en={s.en}>{s.nl}</span>)}
+              </div>
+              <div class="lang-url" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
+                <span>{fx.langUrl.host}/<b data-lang-path data-nl="" data-en="en/"></b></span>
+              </div>
+              <p class="lang-note">{fx.langUrl.note}</p>
+            </div>
+          </div>
+
+          <div class="speed" data-speed>
+            <div class="feature-copy">
+              <h3>{t.what.speed.title}</h3>
+              <p>{t.what.speed.text}</p>
+              <p class="lighter" data-lighter>{fx.lighter}</p>
+            </div>
+            <div class="bars">
+              <div class="bar-row">
+                <div class="bar-label"><span class="bar-name">{t.what.speed.before}</span><span>{t.what.speed.beforeNote}</span></div>
+                <div class="bar-label"><strong data-count="7.3" data-from="0" data-decimals="1" data-lang={lang}>{t.what.speed.beforeValue.replace(' MB', '')}<span> MB</span></strong></div>
+                <div class="bar bar-before"><i style="--w: 100%"></i></div>
+              </div>
+              <div class="bar-row">
+                <div class="bar-label"><span class="bar-name">{t.what.speed.after}</span><span>{t.what.speed.afterNote}</span></div>
+                <div class="bar-label"><strong data-count="0.25" data-from="7.3" data-decimals="2" data-lang={lang}>{t.what.speed.afterValue.replace(' MB', '')}<span> MB</span></strong></div>
+                <div class="bar bar-after"><i style="--w: 3.4%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="duo">
+            <div class="book-card" data-tilt>
+              <h3>{t.what.book.title}</h3>
+              <p>{t.what.book.text}</p>
+              <ul class="systems" data-systems>{t.what.book.systems.map((s) => <li>{s}</li>)}</ul>
+              <div class="tapbar" aria-hidden="true" data-tapbar>
+                {fx.tap.map((label, i) => <span class={i === 2 ? 'primary' : ''}>{label}<i class="ripple"></i></span>)}
+              </div>
+            </div>
+            <div class="care-card" data-tilt>
+              <h3>{t.what.care.title}</h3>
+              <p>{t.what.care.text}</p>
+              <div class="chat" data-chat>
+                <p class="bubble them" data-msg>{t.what.care.chat[0].text}</p>
+                <p class="typing" data-typing aria-hidden="true"><i></i><i></i><i></i></p>
+                <p class="bubble us" data-msg>{t.what.care.chat[1].text}<span class="ticks" aria-hidden="true">✓✓</span></p>
+                <div class="preview" data-preview>
+                  <span class="preview-label">{fx.menuPreview.label}</span>
+                  <span class="preview-line"><span>{fx.menuPreview.name}</span><i></i><span class="flip"><s data-old>{fx.menuPreview.old}</s><b data-new>{fx.menuPreview.now}</b></span></span>
+                </div>
+                <p class="chat-note">{t.what.care.chatNote}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="also">
+            <div class="also-head">
+              <h3 data-rise>{t.what.also.title}</h3>
+              <div class="seal" aria-hidden="true">
+                <svg viewBox="0 0 200 200"><defs><path id={`seal-${lang}`} d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs><text><textPath href={`#seal-${lang}`} textLength="486" lengthAdjust="spacing">{fx.seal}</textPath></text></svg>
+                <span class="seal-spoon" set:html={spoon} />
+              </div>
+            </div>
+            <ul data-also>{t.what.also.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICE -->
+      <section class="band price" id="prijzen" aria-labelledby="price-title">
+        <div class="wrap price-stage">
+          <div class="price-free" aria-hidden="true" data-price-free>
+            <span class="free-big">{fx.priceFree.big}</span>
+            <span class="free-text">{fx.priceFree.text}</span>
+          </div>
+          <div class="card" data-card>
+            <div class="card-head">
+              <span class="card-spoon" set:html={spoon} />
+              <h2 id="price-title" data-split>{t.price.title}</h2>
+              <p>{t.price.intro}</p>
+            </div>
+            {t.price.lines.map((l) => (
+              <div class="line" data-line>
+                <div class="line-top"><span class="line-name">{l.name}</span><span class="line-dots" aria-hidden="true"></span><span class="line-price">{l.price}</span></div>
+                <p>{l.desc}</p>
+              </div>
+            ))}
+            <div class="special" data-line><strong>{t.price.special.name}</strong><p>{t.price.special.desc}</p></div>
+            <p class="card-small">{t.price.small}</p>
+          </div>
+          <div class="seal seal-price" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><defs><path id={`pseal-${lang}`} d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs><text><textPath href={`#pseal-${lang}`} textLength="486" lengthAdjust="spacing">{fx.priceSeal}</textPath></text></svg>
+            <span class="seal-num">3</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="band" id="vragen" aria-labelledby="faq-title">
+        <div class="wrap faq-grid">
+          <div class="faq-side">
+            <header class="band-head"><h2 id="faq-title" data-split>{t.faq.title}</h2></header>
+            <div class="ask" data-rise>
+              <p class="ask-bubble"><i></i><i></i><i></i></p>
+              <p class="ask-title">{fx.faqMore.title}</p>
+              <p>{fx.faqMore.text}</p>
+              <a class="btn btn-ink" href={mail}>{fx.faqMore.cta}</a>
+            </div>
+          </div>
+          <div class="qa" data-qa>
+            {t.faq.items.map((f) => (
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="band contact" id="contact" aria-labelledby="contact-title">
+        <div class="contact-spoons" aria-hidden="true">{Array.from({ length: 9 }, () => <span set:html={spoon} />)}</div>
+        <div class="wrap contact-grid">
+          <div class="contact-inner">
+            <h2 id="contact-title" data-split>{t.contact.title}</h2>
+            <p data-rise>{t.contact.text}</p>
+            <div class="contact-actions" data-rise>
+              <a class="btn btn-tomato magnetic" href={mail}>{t.contact.email}</a>
+              {wa && <a class="btn btn-line" href={wa} target="_blank" rel="noopener">{t.contact.whatsapp}</a>}
+            </div>
+            <p class="who" data-rise>{t.contact.who}, <a class="link" href={mail}>{CONTACT.email}</a></p>
+          </div>
+          <figure class="a5-fig">
+            <div class="a5" aria-hidden="true" data-a5>
+              <p class="a5-for">{t.contact.card.for}</p>
+              <p class="a5-title">{t.contact.card.title}</p>
+              <p class="a5-sub">{t.contact.card.sub}</p>
+              <div class="a5-qr"><span class="qr-wrap"><Fragment set:html={qr} /><i class="qr-shine"></i></span><Logo /></div>
+            </div>
+            <figcaption class="a5-caption">{t.contact.card.caption}</figcaption>
+          </figure>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-word" aria-hidden="true" data-foot-word>amuse studio</div>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div><Logo size="lg" /><p style="margin-top:1rem;max-width:30ch">{t.footer.line}</p></div>
+          <ul>
+            <li><a href="#werkwijze">{t.nav.how}</a></li>
+            <li><a href="#wat-je-krijgt">{t.nav.what}</a></li>
+            <li><a href="#prijzen">{t.nav.price}</a></li>
+            <li><a href="#vragen">{t.nav.faq}</a></li>
+          </ul>
+          <ul>
+            <li><a href={mail}>{CONTACT.email}</a></li>
+            <li><a href={path(t.other)} hreflang={t.other} lang={t.other}>{t.otherLabel}</a></li>
+          </ul>
+        </div>
+        <div class="foot-small">
+          <p>© {new Date().getFullYear()} Amuse Studio, {CONTACT.city}</p>
+          <p>{t.footer.privacy}</p>
+          <p>{t.footer.credits}</p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="application/json" id="studio-data" set:html={JSON.stringify({ hours: hoursDemo, ui: t.what.hours })} />
+    <script>
+      import '../scripts/site.js';
+    </script>
+  </body>
+</html>

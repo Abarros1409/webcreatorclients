@@ -1,0 +1,46 @@
+{
+  "name": "amuse-factory",
+  "private": true,
+  "type": "module",
+  "description": "Website factory: audit, collect, build, QA and pitch kits for hospitality demos.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "audit": "node scripts/audit.mjs",
+    "pick": "node scripts/pick.mjs",
+    "collect": "node scripts/collect.mjs",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --dev",
+    "qa": "node scripts/qa.mjs",
+    "pitch": "node scripts/pitch.mjs",
+    "publish": "node scripts/publish.mjs",
+    "status": "node scripts/status.mjs",
+    "looks": "node scripts/looks.mjs",
+    "shots": "node scripts/shots.mjs",
+    "menu": "node scripts/menu-parse.mjs",
+    "launch": "node scripts/launch.mjs",
+    "standalone": "node scripts/standalone.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/cormorant-garamond": "^5.3.0",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "astro": "^7.4.13",
+    "axe-core": "^4.14.1",
+    "cheerio": "^1.2.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.6.0"
+  }
+}

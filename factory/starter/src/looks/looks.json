@@ -1,0 +1,42 @@
+{
+  "brown-cafe": {
+    "label": "Brown café",
+    "mood": "Warm, classic, wood and brass. History, terrace, regulars.",
+    "hero": "split",
+    "sections": ["hero", "story", "menu", "hours", "events", "gallery", "reviews", "groups", "booking"],
+    "theme_color": "#f3e9da",
+    "icon_bg": "#8c2a20",
+    "icon_ink": "#fbf3e6",
+    "fits": ["brown-cafe", "eetcafe", "beer-bar"]
+  },
+  "coffee-brunch": {
+    "label": "Coffee & brunch",
+    "mood": "Light, minimal, daylight. Instagram feel without the clichés.",
+    "hero": "split",
+    "sections": ["hero", "menu", "story", "hours", "gallery", "reviews", "groups", "booking"],
+    "theme_color": "#f6f2ec",
+    "icon_bg": "#4f6b4c",
+    "icon_ink": "#ffffff",
+    "fits": ["coffee-brunch", "bakery"]
+  },
+  "dining": {
+    "label": "Dining",
+    "mood": "Dark, elegant, candlelit. The booking is the goal.",
+    "hero": "photo",
+    "sections": ["hero", "story", "menu", "booking", "gallery", "reviews", "hours", "events", "groups"],
+    "theme_color": "#0e1311",
+    "icon_bg": "#cdb07a",
+    "icon_ink": "#15120c",
+    "fits": ["restaurant", "fine-dining", "wine-bar", "cocktail-bar"]
+  },
+  "street-food": {
+    "label": "Street food",
+    "mood": "Bold, colourful, loud. Menu with photos and an order button first.",
+    "hero": "split",
+    "sections": ["hero", "menu", "hours", "booking", "gallery", "reviews", "events", "groups"],
+    "theme_color": "#fff3dc",
+    "icon_bg": "#c8261a",
+    "icon_ink": "#ffffff",
+    "fits": ["takeaway", "eethuis", "sports-bar"]
+  }
+}

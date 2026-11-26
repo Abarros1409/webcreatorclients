@@ -1,0 +1,51 @@
+---
+import Img from '../components/Img.astro';
+import Icon from '../components/Icon.astro';
+import OpenBadge from '../components/OpenBadge.astro';
+import { t, fill, has } from '../lib/i18n.js';
+import { photo } from '../lib/media.js';
+const { c, ui, lang, action, variant: requested } = Astro.props;
+const b = c.business;
+const heroImage = c.media?.hero;
+const hasPhoto = !!(heroImage && photo(heroImage.file));
+const variant = hasPhoto ? requested : 'type';
+const kicker = b.kicker ? t(b.kicker, lang) : [b.cuisine?.[0], c.contact.address.city].filter(Boolean).join(' · ');
+const hasMenu = c.menu?.sections?.length > 0;
+---
+<section class={`hero hero-${variant}`} id="top" data-section="hero">
+  {variant === 'photo' && (
+    <div class="hero-media">
+      <Img image={heroImage} lang={lang} eager sizes="100vw" class="hero-img" />
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </div>
+  )}
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      {kicker && <p class="kicker reveal">{kicker}</p>}
+      <h1 class="hero-title reveal">{b.name}</h1>
+      <p class="hero-tagline reveal">{t(b.tagline, lang)}</p>
+      {has(b.intro) && <p class="hero-intro reveal">{t(b.intro, lang)}</p>}
+      <div class="hero-actions reveal">
+        {action && (
+          <a class="btn btn-primary" href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener' : undefined}>
+            <Icon name={action.icon} />{action.label}
+          </a>
+        )}
+        {hasMenu && <a class="btn btn-ghost" href="#menu">{ui.viewMenu}<Icon name="arrow" size={18} /></a>}
+      </div>
+      <OpenBadge class="reveal" />
+    </div>
+    {variant === 'split' && (
+      <div class="hero-figure reveal">
+        <Img image={heroImage} lang={lang} eager sizes="(min-width: 960px) 50vw, 100vw" class="hero-img" />
+      </div>
+    )}
+  </div>
+  {b.facts?.length > 0 && (
+    <div class="wrap">
+      <ul class="facts reveal">
+        {b.facts.map((f) => <li><strong>{f.value}</strong><span>{t(f.label, lang)}</span></li>)}
+      </ul>
+    </div>
+  )}
+</section>

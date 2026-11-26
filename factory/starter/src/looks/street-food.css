@@ -1,0 +1,70 @@
+/* Look: Street food — bold, colourful, loud in the best way.
+   Archivo (condensed black for display, regular width for text). Hard edges, offset shadows, sticker labels. */
+@import '@fontsource-variable/archivo/wdth.css';
+
+@layer look {
+  :root {
+    --bg: #fff3dc;
+    --surface: #ffffff;
+    --surface-2: #ffe1a6;
+    --ink: #151010;
+    --ink-soft: #2b2222;
+    --muted: #5c4f49;
+    --line: #151010;
+    --accent: #c8261a;
+    --accent-ink: #ffffff;
+    --accent-soft: #ffd9cf;
+    --mustard: #ffc23a;
+    --font-display: 'Archivo Variable', 'Arial Narrow', sans-serif;
+    --font-body: 'Archivo Variable', system-ui, sans-serif;
+    --display-weight: 900;
+    --display-tracking: -0.01em;
+    --display-transform: uppercase;
+    --display-leading: 0.86;
+    --radius: 0.6rem;
+    --radius-lg: 1rem;
+    --btn-radius: 0.6rem;
+    --hard: 5px 5px 0 var(--ink);
+  }
+  h1, h2, h3, .wordmark, .facts strong, .rating-value { font-stretch: 68%; font-variation-settings: 'wdth' 68; }
+  body { font-variation-settings: 'wdth' 100; }
+  .hero-title { font-size: clamp(3.4rem, 1.2rem + 10vw, 10rem); }
+  .hero-tagline { font-family: var(--font-body); font-weight: 700; font-variation-settings: 'wdth' 100; text-transform: none; }
+  .kicker { display: inline-block; background: var(--mustard); color: var(--ink); padding: 0.35rem 0.7rem; border: 2px solid var(--ink); border-radius: 0.4rem; rotate: -2deg; box-shadow: 3px 3px 0 var(--ink); }
+
+  .btn { border-width: 2.5px; --btn-bd: var(--ink); box-shadow: var(--hard); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+  .btn-primary { --btn-bd: var(--ink); }
+  .btn-ghost { --btn-bg: var(--surface); --btn-fg: var(--ink); --btn-bd: var(--ink); }
+  @media (hover: hover) { .btn-primary:hover { --btn-bg: #a81f15; --btn-bd: var(--ink); } .btn-ghost:hover { --btn-bg: var(--mustard); } }
+
+  .hero-figure, .story-figure, .gallery-item, .hours-card, .location-card, .groups-form, .menu-sections, .quotes li { border: 3px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
+  .hero-figure { rotate: 1.5deg; }
+  .facts { background: var(--ink); border: 3px solid var(--ink); gap: 3px; }
+  .facts li { background: var(--mustard); }
+  .facts span { color: var(--ink); font-weight: 600; }
+
+  .menu { background: var(--accent); }
+  .menu .section-title, .menu .section-intro, .menu .menu-footnote { color: var(--accent-ink); }
+  .menu .chip { background: var(--surface); border: 2px solid var(--ink); color: var(--ink); }
+  .menu .chip.is-active, .menu .chip[aria-pressed='true'] { background: var(--mustard); color: var(--ink); }
+  .menu-sections { background: var(--surface); border-radius: var(--radius-lg); padding: clamp(1rem, 3vw, 2.5rem); }
+  .menu-section-title { border-bottom: 3px solid var(--ink); font-size: var(--step-3); }
+  .menu-item { border-bottom: 2px solid color-mix(in oklab, var(--ink) 12%, transparent); }
+  .menu-leader { border-bottom: 2px dotted var(--ink); opacity: 0.3; }
+  .menu-item-name { font-weight: 800; }
+  .menu-item-price { background: var(--mustard); padding: 0.1rem 0.45rem; border-radius: 0.35rem; border: 2px solid var(--ink); font-weight: 800; }
+  .menu-photo-pic { border: 2.5px solid var(--ink); }
+  .menu-search { border: 2.5px solid var(--ink); background: var(--surface); }
+  .tag { background: var(--mustard); color: var(--ink); border: 1.5px solid var(--ink); }
+
+  .booking { background: var(--mustard); color: var(--ink); border-block: 3px solid var(--ink); }
+  .booking .section-intro { color: var(--ink-soft); }
+  .booking .btn-primary { --btn-bg: var(--accent); --btn-fg: var(--accent-ink); --btn-bd: var(--ink); }
+  .booking .btn-ghost { --btn-bg: var(--surface); --btn-fg: var(--ink); --btn-bd: var(--ink); }
+  .groups { background: var(--bg); }
+  .site-header { border-bottom: 3px solid var(--ink); background: var(--bg); backdrop-filter: none; }
+  .sticky-bar { border-top: 3px solid var(--ink); background: var(--bg); }
+  .sticky-bar .sticky-primary { border: 2.5px solid var(--ink); }
+  .stars .on { color: var(--accent); }
+}

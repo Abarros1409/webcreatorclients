@@ -1,0 +1,18 @@
+---
+// Mobile-only bottom bar: the three things a guest on the street wants.
+import Icon from './Icon.astro';
+import { telHref } from '../lib/actions.js';
+const { c, ui, action } = Astro.props;
+const tel = telHref(c);
+const showCall = tel && action?.kind !== 'call';
+---
+<nav class="sticky-bar" aria-label={ui.callUs}>
+  {showCall && <a href={tel}><Icon name="phone" /><span>{ui.call}</span></a>}
+  <a href={c.contact.maps_url} target="_blank" rel="noopener"><Icon name="pin" /><span>{ui.route}</span></a>
+  {c.menu?.sections?.length > 0 && <a href="#menu"><Icon name="search" /><span>{ui.nav.menu}</span></a>}
+  {action && (
+    <a class="sticky-primary" href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener' : undefined}>
+      <Icon name={action.icon} /><span>{action.short}</span>
+    </a>
+  )}
+</nav>

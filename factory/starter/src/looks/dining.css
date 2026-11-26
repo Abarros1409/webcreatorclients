@@ -1,0 +1,86 @@
+/* Look: Dining — dark, elegant, candlelit.
+   Cormorant Garamond + Manrope. Green-black room, ivory type, champagne hairlines. */
+@import '@fontsource-variable/cormorant-garamond';
+@import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+@import '@fontsource-variable/manrope';
+
+@layer look {
+  :root {
+    --bg: #0e1311;
+    --surface: #131a17;
+    --surface-2: #1a231f;
+    --ink: #eee6d6;
+    --ink-soft: #d8cfbd;
+    --muted: #a69e8d;
+    --line: color-mix(in oklab, #eee6d6 14%, transparent);
+    --accent: #cdb07a;
+    --accent-ink: #15120c;
+    --accent-soft: #2a2a20;
+    --open: #8fc49b;
+    --closed: #d98b74;
+    --font-display: 'Cormorant Garamond Variable', 'Times New Roman', serif;
+    --font-body: 'Manrope Variable', system-ui, sans-serif;
+    --display-weight: 500;
+    --display-tracking: -0.01em;
+    --display-leading: 0.95;
+    --kicker-tracking: 0.32em;
+    --tagline-style: italic;
+    --radius: 0;
+    --radius-lg: 0;
+    --btn-radius: 0;
+    --section-space: clamp(5rem, 3.5rem + 7vw, 10rem);
+  }
+  html { color-scheme: dark; }
+  body { font-weight: 400; letter-spacing: 0.005em; }
+
+  .hero-title { font-size: clamp(3.4rem, 1.8rem + 7.5vw, 8.75rem); font-weight: 500; }
+  .hero-tagline { color: var(--accent); }
+  .kicker { font-weight: 500; font-size: 0.72rem; color: var(--muted); }
+  .section-title { font-weight: 500; }
+  .section-head { justify-items: center; text-align: center; margin-inline: auto; }
+  .section-head .section-intro { margin-inline: auto; }
+
+  .btn { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; padding-inline: 1.6rem; }
+  .btn-ghost { --btn-bd: color-mix(in oklab, var(--ink) 35%, transparent); }
+
+  /* Champagne hairline under titles */
+  .section-title::after { content: ''; display: block; width: 2.5rem; height: 1px; background: var(--accent); margin-top: 1.25rem; }
+  .section-head .section-title::after { margin-inline: auto; }
+
+  .hero-photo .hero-scrim { background: linear-gradient(180deg, rgb(8 12 10 / 0.35) 0%, rgb(8 12 10 / 0.15) 40%, rgb(8 12 10 / 0.92) 100%); }
+  .hero-photo { color: var(--ink); }
+  .hero-figure, .story-figure { outline: 1px solid var(--line); outline-offset: 0.9rem; }
+
+  .facts { background: transparent; border-color: var(--line); }
+  .facts li { background: transparent; }
+
+  /* Menu: centred, generous, no leaders */
+  .menu { background: var(--surface); }
+  .menu-tabs { justify-content: center; }
+  .menu-section-title { text-align: center; border-bottom: 0; font-style: italic; font-size: var(--step-3); }
+  .menu-section-title::after { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--accent); margin: 0.9rem auto 0; }
+  .menu-leader { border: 0; }
+  .menu-item { border-bottom: 0; text-align: center; justify-content: center; }
+  .menu-item-line { justify-content: center; flex-wrap: wrap; gap: 0.3rem 0.9rem; }
+  .menu-item-name { font-family: var(--font-display); font-size: var(--step-2); font-weight: 500; }
+  .menu-leader { display: none; }
+  .menu-item-price { color: var(--accent); font-size: var(--step--1); letter-spacing: 0.1em; }
+  .menu-item-desc, .menu-item-meta { margin-inline: auto; justify-content: center; }
+  .chip { letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.7rem; border-radius: 0; }
+  .chip.is-active, .chip[aria-pressed='true'] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .menu-search { border-radius: 0; background: var(--bg); margin-inline: auto; }
+
+  .hours-card, .location-card, .groups-form { background: transparent; }
+  .map { filter: grayscale(0.6) contrast(1.05); }
+  .booking { background: var(--surface-2); color: var(--ink); border-block: 1px solid var(--line); }
+  .booking .section-intro { color: var(--muted); }
+  .booking .btn-primary { --btn-bg: var(--accent); --btn-fg: var(--accent-ink); --btn-bd: var(--accent); }
+  .booking .btn-ghost { --btn-fg: var(--ink); --btn-bd: var(--line); }
+  .groups { background: var(--bg); }
+  .field input, .field textarea { background: var(--surface); }
+  .site-footer { background: #080b0a; color: var(--ink); border-top: 1px solid var(--line); }
+  .site-header { background: color-mix(in oklab, var(--bg) 80%, transparent); }
+  .concept { background: var(--accent); color: var(--accent-ink); }
+  .tag { background: var(--surface-2); color: var(--ink-soft); }
+  .stars { color: var(--line); }
+}

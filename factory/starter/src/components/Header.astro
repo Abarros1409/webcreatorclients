@@ -1,0 +1,29 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+const { c, ui, lang, sections, action, paths } = Astro.props;
+const navKeys = ['menu', 'story', 'hours', 'events', 'groups'].filter((k) => sections.includes(k));
+const other = lang === 'nl' ? 'en' : 'nl';
+---
+<header class="site-header" data-header>
+  <div class="wrap header-inner">
+    <a class="brand" href={paths[lang]} aria-label={c.business.name}>
+      <Logo c={c} />
+    </a>
+    <nav class="nav" aria-label="Main">
+      <ul>
+        {navKeys.map((k) => <li><a href={`#${k}`}>{ui.nav[k]}</a></li>)}
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="lang-switch" href={paths[other]} hreflang={other} lang={other}>
+        <span class="lang-full">{ui.switchTo}</span><span class="lang-short">{other.toUpperCase()}</span>
+      </a>
+      {action && (
+        <a class="btn btn-primary btn-sm header-cta" href={action.href} target={action.external ? '_blank' : undefined} rel={action.external ? 'noopener' : undefined}>
+          <Icon name={action.icon} size={18} />{action.short}
+        </a>
+      )}
+    </div>
+  </div>
+</header>

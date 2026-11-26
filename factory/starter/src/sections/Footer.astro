@@ -1,0 +1,41 @@
+---
+import Icon from '../components/Icon.astro';
+import Logo from '../components/Logo.astro';
+import { fill } from '../lib/i18n.js';
+import { telHref } from '../lib/actions.js';
+const { c, ui, lang, studio, paths } = Astro.props;
+const a = c.contact.address;
+const socials = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['tiktok', 'TikTok']].filter(([k]) => c.links?.[k]);
+const other = lang === 'nl' ? 'en' : 'nl';
+const year = new Date().getFullYear();
+const m = c.media ?? {};
+const credits = [...new Set([m.hero, m.story, ...(m.gallery ?? [])].filter((i) => i?.credit).map((i) => i.credit))];
+---
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <Logo c={c} size="lg" />
+      <address>
+        <span>{a.street}</span><span>{a.postal_code} {a.city}</span>
+        {telHref(c) && <a href={telHref(c)}>{c.contact.phone_display ?? c.contact.phone}</a>}
+        {c.contact.email && <a href={`mailto:${c.contact.email}`}>{c.contact.email}</a>}
+      </address>
+    </div>
+    {socials.length > 0 && (
+      <div class="footer-social">
+        <p class="footer-label">{ui.follow}</p>
+        <ul>{socials.map(([k, label]) => <li><a href={c.links[k]} target="_blank" rel="noopener"><Icon name={k} />{label}</a></li>)}</ul>
+      </div>
+    )}
+    <div class="footer-meta">
+      <a class="lang-switch" href={paths[other]} hreflang={other} lang={other}>{ui.switchTo}</a>
+      <a href="#top" class="link"><Icon name="arrowUp" size={16} />{ui.backToTop}</a>
+    </div>
+  </div>
+  <div class="wrap footer-small">
+    <p>© {year} {c.business.name}</p>
+    <p>{ui.privacy}</p>
+    {credits.length > 0 && <p>{ui.credits}: {credits.join('; ')}</p>}
+    <p>{studio.url ? <a href={studio.url} target="_blank" rel="noopener">{fill(ui.madeBy, { studio: studio.name })}</a> : fill(ui.madeBy, { studio: studio.name })}</p>
+  </div>
+</footer>

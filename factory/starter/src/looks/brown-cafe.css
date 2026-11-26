@@ -1,0 +1,71 @@
+/* Look: Brown café — warm, classic, a century of jenever and wood panelling.
+   Fraunces (soft, wonky serif) + Figtree. Cream paper, espresso ink, oxblood accent, brass rules. */
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource-variable/figtree';
+
+@layer look {
+  :root {
+    --bg: #f3e9da;
+    --surface: #faf4ea;
+    --surface-2: #e8d8c1;
+    --ink: #2a1b13;
+    --ink-soft: #46321f;
+    --muted: #6f5644;
+    --line: color-mix(in oklab, #2a1b13 16%, transparent);
+    --accent: #8c2a20;
+    --accent-ink: #fbf3e6;
+    --accent-soft: #ead2bf;
+    --brass: #a3742c;
+    --font-display: 'Fraunces Variable', Georgia, serif;
+    --font-body: 'Figtree Variable', system-ui, sans-serif;
+    --display-weight: 560;
+    --display-tracking: -0.015em;
+    --display-leading: 0.92;
+    --tagline-style: italic;
+    --radius: 0.35rem;
+    --radius-lg: 0.5rem;
+    --btn-radius: 0.35rem;
+  }
+
+  body {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.1 0 0 0 0 0.07 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, .wordmark, .facts strong, .rating-value { font-variation-settings: 'SOFT' 60, 'WONK' 1, 'opsz' 96; }
+  .hero-title { font-weight: 600; }
+  .hero-tagline { font-variation-settings: 'SOFT' 100, 'opsz' 36; }
+  .kicker { color: var(--brass); letter-spacing: 0.18em; }
+  .wordmark { font-style: italic; font-size: 1.55rem; }
+
+  /* Brass double rule above section titles */
+  .section-title::before { content: ''; display: block; width: 3.25rem; height: 5px; margin-bottom: 1.1rem; border-block: 1px solid var(--brass); }
+  .hours-card .section-title::before, .location-card .section-title::before, .booking .section-title::before { display: none; }
+
+  /* Framed photographs, like a portrait on the café wall */
+  .hero-figure, .story-figure { padding: 0.6rem; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 1px 0 var(--line), 0 24px 40px -28px rgb(42 27 19 / 0.55); border-radius: var(--radius); }
+  .hero-figure .pic, .story-figure .pic { border-radius: 2px; overflow: hidden; outline: 1px solid color-mix(in oklab, var(--brass) 55%, transparent); outline-offset: 4px; }
+  .hero-figure { rotate: 1deg; }
+  .story-figure { rotate: -1.2deg; }
+  @media (prefers-reduced-motion: no-preference) { .hero-figure, .story-figure { transition: rotate 600ms var(--ease-out); } }
+
+  .facts { background: transparent; border-block: 1px solid var(--brass); gap: 0; }
+  .facts li { background: transparent; text-align: center; justify-items: center; }
+  .facts li + li { border-left: 1px solid var(--line); }
+
+  /* Menu as a printed card */
+  .menu { background: var(--surface); border-block: 1px solid var(--line); }
+  .menu-section-title { border-bottom: 0; font-style: italic; text-align: left; display: flex; align-items: center; gap: 1rem; }
+  .menu-section-title::after { content: ''; flex: 1; height: 5px; border-block: 1px solid var(--brass); }
+  .menu-item { border-bottom: 0; padding-block: 0.7rem; }
+  .menu-item-name { font-family: var(--font-display); font-weight: 560; font-size: var(--step-1); }
+  .menu-item-price { font-family: var(--font-display); font-variation-settings: 'opsz' 24; }
+  .chip.is-active, .chip[aria-pressed='true'] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+  .hours-card, .location-card, .groups-form { background: var(--surface); box-shadow: inset 0 0 0 6px var(--surface), inset 0 0 0 7px var(--line); }
+  .booking { background: var(--ink); color: var(--bg); }
+  .booking .section-intro { color: color-mix(in oklab, var(--bg) 78%, transparent); }
+  .booking .btn-primary { --btn-bg: var(--accent); --btn-fg: var(--accent-ink); --btn-bd: var(--accent); }
+  .booking .btn-ghost { --btn-fg: var(--bg); --btn-bd: color-mix(in oklab, var(--bg) 40%, transparent); }
+  .site-footer { background: #1f140e; }
+  .quotes blockquote p { font-style: italic; }
+}

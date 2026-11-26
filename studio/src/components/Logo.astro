@@ -1,0 +1,11 @@
+---
+// Wordmark per the brand brief: lowercase warm serif, with a tasting spoon whose bowl is the tomato dot.
+const { size = 'md', label = 'Amuse Studio' } = Astro.props;
+---
+<span class={`logo logo-${size}`} role="img" aria-label={label}>
+  <svg class="spoon" viewBox="0 0 40 40" aria-hidden="true">
+    <ellipse cx="14.5" cy="14" rx="9.5" ry="7" transform="rotate(-38 14.5 14)" fill="var(--tomato)" />
+    <path d="M21 20.5c3.6 3.4 7.4 7.4 11.6 12.4" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+  </svg>
+  <span class="wordmark" aria-hidden="true">amuse studio</span>
+</span>

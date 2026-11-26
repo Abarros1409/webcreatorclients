@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "slug": "showcase-diner",
+  "mode": "showcase",
+  "look": "dining",
+  "business": {
+    "name": "Getij",
+    "kind": "restaurant",
+    "schema_type": "Restaurant",
+    "cuisine": [
+      "Seizoensgebonden",
+      "Vis"
+    ],
+    "price_range": "€€€",
+    "kicker": {
+      "nl": "Restaurant aan het water",
+      "en": "Restaurant by the water"
+    },
+    "tagline": {
+      "nl": "Vis van de afslag, groente van het seizoen, een kaart die meebeweegt.",
+      "en": "Fish from the auction, vegetables in season, a menu that moves with them."
+    },
+    "intro": {
+      "nl": "Een fictief restaurant, gemaakt om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional restaurant, made to show what one of our sites looks like."
+    },
+    "story": {
+      "title": {
+        "nl": "De kaart volgt het getij",
+        "en": "The menu follows the tide"
+      },
+      "body": {
+        "nl": "Op een echte site staat hier waar de chef zijn vis haalt en hoe de kaart elke week verandert.\n\nWe houden het kort: gasten willen vooral weten wat er vanavond op tafel komt en hoe ze reserveren.",
+        "en": "On a real site this is where the chef buys the fish and how the menu changes every week.\n\nWe keep it short: guests mostly want to know what is on tonight and how to book."
+      }
+    }
+  },
+  "contact": {
+    "phone": "+31100000000",
+    "phone_display": "010 000 00 00",
+    "email": "hallo@example.com",
+    "address": {
+      "street": "Voorbeeldhaven 21",
+      "postal_code": "3000 AA",
+      "city": "Rotterdam",
+      "country": "NL"
+    },
+    "geo": {
+      "lat": 51.9089,
+      "lng": 4.4867
+    },
+    "maps_url": "https://www.openstreetmap.org/?mlat=51.9089&mlon=4.4867#map=17/51.9089/4.4867"
+  },
+  "hours": {
+    "timezone": "Europe/Amsterdam",
+    "regular": [
+      {
+        "days": [
+          "we",
+          "th",
+          "fr",
+          "sa",
+          "su"
+        ],
+        "opens": "17:30",
+        "closes": "23:00"
+      }
+    ],
+    "note": {
+      "nl": "Maandag en dinsdag gesloten. Keuken tot 21:30.",
+      "en": "Closed Monday and Tuesday. Kitchen until 21:30."
+    }
+  },
+  "menu": {
+    "title": {
+      "nl": "Deze week",
+      "en": "This week"
+    },
+    "intro": {
+      "nl": "Vier of zes gangen, of à la carte.",
+      "en": "Four or six courses, or à la carte."
+    },
+    "currency": "EUR",
+    "sections": [
+      {
+        "id": "menu",
+        "title": {
+          "nl": "Menu",
+          "en": "Set menu"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Vier gangen",
+              "en": "Four courses"
+            },
+            "price": 62.0,
+            "featured": true
+          },
+          {
+            "name": {
+              "nl": "Zes gangen",
+              "en": "Six courses"
+            },
+            "price": 82.0
+          },
+          {
+            "name": {
+              "nl": "Wijnarrangement, vier glazen",
+              "en": "Wine pairing, four glasses"
+            },
+            "price": 38.0
+          }
+        ]
+      },
+      {
+        "id": "voor",
+        "title": {
+          "nl": "Voorgerechten",
+          "en": "Starters"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Gerookte paling",
+              "en": "Smoked eel"
+            },
+            "price": 17.0,
+            "description": {
+              "nl": "Biet, mierikswortel, rogge.",
+              "en": "Beetroot, horseradish, rye."
+            }
+          },
+          {
+            "name": {
+              "nl": "Pompoen",
+              "en": "Pumpkin"
+            },
+            "price": 14.0,
+            "description": {
+              "nl": "Hazelnoot, salie, bruine boter.",
+              "en": "Hazelnut, sage, brown butter."
+            },
+            "tags": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "hoofd",
+        "title": {
+          "nl": "Hoofdgerechten",
+          "en": "Mains"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Tarbot",
+              "en": "Turbot"
+            },
+            "price": 34.0,
+            "description": {
+              "nl": "Mosselen, venkel, beurre blanc.",
+              "en": "Mussels, fennel, beurre blanc."
+            }
+          },
+          {
+            "name": {
+              "nl": "Hertenbiefstuk",
+              "en": "Venison steak"
+            },
+            "price": 32.0,
+            "description": {
+              "nl": "Knolselderij, cranberry, jus.",
+              "en": "Celeriac, cranberry, jus."
+            }
+          },
+          {
+            "name": {
+              "nl": "Paddenstoelen",
+              "en": "Mushrooms"
+            },
+            "price": 26.0,
+            "description": {
+              "nl": "Polenta, truffel, Parmezaan.",
+              "en": "Polenta, truffle, Parmesan."
+            },
+            "tags": [
+              "vegetarian"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "dessert",
+        "title": {
+          "nl": "Desserts",
+          "en": "Desserts"
+        },
+        "items": [
+          {
+            "name": {
+              "nl": "Peer",
+              "en": "Pear"
+            },
+            "price": 12.0,
+            "description": {
+              "nl": "Karamel, vanille, amandel.",
+              "en": "Caramel, vanilla, almond."
+            }
+          },
+          {
+            "name": {
+              "nl": "Kaas",
+              "en": "Cheese"
+            },
+            "price": 15.0,
+            "description": {
+              "nl": "Drie Nederlandse kazen.",
+              "en": "Three Dutch cheeses."
+            }
+          }
+        ]
+      }
+    ],
+    "allergens_note": {
+      "nl": "Laat bij het reserveren weten wat je niet eet.",
+      "en": "Tell us what you don’t eat when you book."
+    }
+  },
+  "booking": {
+    "provider": "other",
+    "url": "https://www.example.com/reserveren",
+    "label": {
+      "nl": "Reserveer een tafel",
+      "en": "Book a table"
+    },
+    "note": {
+      "nl": "Via je eigen reserveringssysteem, of per telefoon.",
+      "en": "Through your own booking system, or by phone."
+    }
+  },
+  "links": {
+    "gift_cards": "https://www.example.com/cadeaukaart"
+  },
+  "groups": {
+    "enabled": true,
+    "title": {
+      "nl": "Privé dineren",
+      "en": "Private dining"
+    },
+    "body": {
+      "nl": "De bovenzaal biedt plaats aan veertien gasten.",
+      "en": "The upstairs room seats fourteen."
+    },
+    "min_size": 8,
+    "max_size": 14,
+    "form": {
+      "method": "mailto",
+      "to": "hallo@example.com"
+    }
+  },
+  "seo": {
+    "title": {
+      "nl": "Getij · voorbeeld van Amuse Studio",
+      "en": "Getij · Amuse Studio example"
+    },
+    "description": {
+      "nl": "Een fictief restaurant in Rotterdam, gemaakt door Amuse Studio om te laten zien hoe een site van ons eruitziet.",
+      "en": "A fictional restaurant in Rotterdam, made by Amuse Studio to show what one of our sites looks like."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+---
+import Img from '../components/Img.astro';
+import { t, paragraphs } from '../lib/i18n.js';
+const { c, ui, lang } = Astro.props;
+const s = c.business.story;
+const img = c.media?.story;
+---
+<section class={`section story ${img ? 'story-with-photo' : ''}`} id="story" data-section="story" aria-labelledby="story-title">
+  <div class="wrap story-grid">
+    <div class="story-copy">
+      <p class="kicker reveal">{ui.storyKicker}</p>
+      <h2 id="story-title" class="section-title reveal">{t(s.title, lang)}</h2>
+      <div class="prose reveal">
+        {paragraphs(s.body, lang).map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+    {img && (
+      <figure class="story-figure reveal">
+        <Img image={img} lang={lang} sizes="(min-width: 960px) 40vw, 100vw" class="story-img" />
+      </figure>
+    )}
+  </div>
+</section>

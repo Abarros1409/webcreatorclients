@@ -1,0 +1,59 @@
+/* Look: Coffee & brunch — light, minimal, daylight through a big window.
+   Bricolage Grotesque (characterful grotesque) + Hanken Grotesk. Oat white, charcoal, sage. */
+@import '@fontsource-variable/bricolage-grotesque/opsz.css';
+@import '@fontsource-variable/hanken-grotesk';
+
+@layer look {
+  :root {
+    --bg: #f6f2ec;
+    --surface: #fffdf9;
+    --surface-2: #ebe4d8;
+    --ink: #1c1b19;
+    --ink-soft: #34322e;
+    --muted: #66625b;
+    --line: color-mix(in oklab, #1c1b19 11%, transparent);
+    --accent: #4f6b4c;
+    --accent-ink: #ffffff;
+    --accent-soft: #dfe7d9;
+    --butter: #f1d38e;
+    --font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+    --font-body: 'Hanken Grotesk Variable', system-ui, sans-serif;
+    --display-weight: 700;
+    --display-tracking: -0.035em;
+    --display-leading: 0.9;
+    --kicker-tracking: 0.08em;
+    --radius: 1rem;
+    --radius-lg: 1.75rem;
+    --btn-radius: 999px;
+  }
+
+  h1, h2, h3, .wordmark { font-variation-settings: 'opsz' 96; }
+  .hero-title { font-size: clamp(3rem, 1.4rem + 7.5vw, 8rem); }
+  .hero-tagline { font-family: var(--font-body); font-weight: 500; letter-spacing: -0.01em; }
+  .kicker { text-transform: none; font-size: var(--step-0); letter-spacing: 0; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 0.6rem; }
+  .kicker::before { content: ''; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--butter); box-shadow: 0 0 0 4px color-mix(in oklab, var(--butter) 40%, transparent); }
+
+  /* Big soft photo shapes */
+  .hero-figure { border-radius: 2.5rem 2.5rem 2.5rem 0.5rem; aspect-ratio: 4 / 4.6; }
+  .story-figure { border-radius: 50% 50% 1.75rem 1.75rem / 38% 38% 1.75rem 1.75rem; }
+  .gallery-item { border-radius: var(--radius-lg); }
+
+  .facts { background: transparent; border: 0; gap: 0.75rem; }
+  .facts li { background: var(--surface); border-radius: var(--radius-lg); }
+
+  /* Menu: airy list, no leaders, prices sit quietly on the right */
+  .menu { background: var(--bg); }
+  .menu-leader { border: 0; }
+  .menu-section-title { border-bottom: 0; font-size: var(--step-3); }
+  .menu-item { border-bottom: 1px dashed var(--line); }
+  .menu-item-price { color: var(--accent); }
+  .menu-sections { padding: clamp(1.25rem, 3vw, 3rem); background: var(--surface); border-radius: var(--radius-lg); }
+
+  .hours-card, .location-card, .groups-form { border: 0; background: var(--surface); }
+  .groups { background: var(--accent-soft); }
+  .booking { background: var(--butter); color: var(--ink); }
+  .booking .section-intro { color: var(--ink-soft); }
+  .booking .btn-primary { --btn-bg: var(--ink); --btn-fg: var(--bg); --btn-bd: var(--ink); }
+  .booking .btn-ghost { --btn-fg: var(--ink); --btn-bd: color-mix(in oklab, var(--ink) 35%, transparent); }
+  .site-footer { background: #22251f; }
+}

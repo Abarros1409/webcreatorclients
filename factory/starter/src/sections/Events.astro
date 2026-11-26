@@ -1,0 +1,22 @@
+---
+import { t, has } from '../lib/i18n.js';
+const { c, ui, lang } = Astro.props;
+const e = c.events;
+---
+<section class="section events" id="events" data-section="events" aria-labelledby="events-title">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 id="events-title" class="section-title reveal">{has(e.title) ? t(e.title, lang) : ui.eventsTitle}</h2>
+      {has(e.intro) && <p class="section-intro reveal">{t(e.intro, lang)}</p>}
+    </header>
+    <ul class="event-list">
+      {e.items.map((it) => (
+        <li class="event reveal">
+          <p class="event-when">{t(it.when, lang)}</p>
+          <h3 class="event-title">{t(it.title, lang)}</h3>
+          {has(it.description) && <p class="event-desc">{t(it.description, lang)}</p>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
